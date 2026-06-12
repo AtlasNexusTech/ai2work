@@ -13,6 +13,10 @@ export const metadata: Metadata = {
     "Live on-chain revenue accrued at the AI2Work treasury. Every resolved bounty contributes a 2% protocol fee.",
 };
 
+// The revenue widgets read live Celo RPC data. Keep this page dynamic so
+// transient RPC outages do not fail the production build during prerendering.
+export const dynamic = "force-dynamic";
+
 export default function RevenuePage() {
   return (
     <main className="relative isolate min-h-dvh overflow-hidden">

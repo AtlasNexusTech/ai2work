@@ -9,6 +9,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { NetworkSwitcher } from "@/components/network-switcher";
 import { ConnectWallet } from "@/components/connect-wallet";
+import { ProfileAvatar } from "@/components/profile-avatar";
 import { useMiniPayDetection } from "@/lib/minipay";
 
 export function Header() {
@@ -75,6 +76,7 @@ export function Header() {
           <ThemeToggle />
           <NetworkSwitcher />
           {!isMiniPay && <ConnectWallet />}
+          <ProfileAvatar />
         </div>
       </nav>
     </motion.header>
