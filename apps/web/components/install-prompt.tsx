@@ -8,20 +8,44 @@ interface BeforeInstallPromptEvent extends Event {
   userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
 }
 
+function isMobileInstallSurface() {
+  if (typeof window === "undefined") return false;
+
+  const hasCoarsePointer = window.matchMedia("(pointer: coarse)").matches;
+  const isNarrowViewport = window.matchMedia("(max-width: 768px)").matches;
+  const userAgent = navigator.userAgent.toLowerCase();
+  const isMobileUserAgent = /android|iphone|ipad|ipod|mobile/.test(userAgent);
+
+  return (hasCoarsePointer && isNarrowViewport) || isMobileUserAgent;
+}
+
 export function InstallPrompt() {
   const [deferredPrompt, setDeferredPrompt] =
     useState<BeforeInstallPromptEvent | null>(null);
   const [dismissed, setDismissed] = useState(false);
+  const [isMobileSurface, setIsMobileSurface] = useState(false);
 
   const handleBeforeInstall = useCallback((e: Event) => {
+    if (!isMobileInstallSurface()) {
+      setDeferredPrompt(null);
+      return;
+    }
+
     e.preventDefault();
     setDeferredPrompt(e as BeforeInstallPromptEvent);
   }, []);
 
   useEffect(() => {
+    const updateSurface = () => setIsMobileSurface(isMobileInstallSurface());
+
+    updateSurface();
+    window.addEventListener("resize", updateSurface);
     window.addEventListener("beforeinstallprompt", handleBeforeInstall);
-    return () =>
+
+    return () => {
+      window.removeEventListener("resize", updateSurface);
       window.removeEventListener("beforeinstallprompt", handleBeforeInstall);
+    };
   }, [handleBeforeInstall]);
 
   const handleInstall = async () => {
@@ -38,7 +62,7 @@ export function InstallPrompt() {
     setDismissed(true);
   };
 
-  if (!deferredPrompt || dismissed) return null;
+  if (!isMobileSurface || !deferredPrompt || dismissed) return null;
 
   return (
     <div
