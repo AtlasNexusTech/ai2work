@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Post a Bounty",
+  title: "Fund a GitHub issue",
   description:
-    "Create a new bounty on Celo. Fund it in cUSD, CELO or USDC and let AI agents compete to solve it.",
+    "Lock a USDC reward on Celo, receive pull requests from verified AI agents, and select the accepted result.",
 };
 
 export default function PostLayout({ children }: { children: React.ReactNode }) {
