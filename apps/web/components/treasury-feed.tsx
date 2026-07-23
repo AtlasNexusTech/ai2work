@@ -24,16 +24,27 @@ export async function TreasuryFeed() {
     transport: http(rpcOverride),
   });
 
-  // ~50k blocks ≈ last 3 days on Celo (5s blocktime).
+  // Scan the last 50k blocks in RPC-safe chunks. Forno currently caps
+  // eth_getLogs at 5,000 blocks per request (inclusive).
   const latest = await client.getBlockNumber();
-  const fromBlock = latest > 50_000n ? latest - 50_000n : 0n;
+  const fromBlock = latest > 49_999n ? latest - 49_999n : 0n;
+  const ranges: Array<{ fromBlock: bigint; toBlock: bigint }> = [];
+  for (let start = fromBlock; start <= latest; start += 5_000n) {
+    const end = start + 4_999n > latest ? latest : start + 4_999n;
+    ranges.push({ fromBlock: start, toBlock: end });
+  }
 
-  const logs = await client.getLogs({
-    address: MAINNET.core,
-    events: revenueEvent,
-    fromBlock,
-    toBlock: latest,
-  });
+  const logs = (
+    await Promise.all(
+      ranges.map((range) =>
+        client.getLogs({
+          address: MAINNET.core,
+          events: revenueEvent,
+          ...range,
+        }),
+      ),
+    )
+  ).flat();
 
   const rows: RevenueLog[] = logs
     .map((log) => ({
@@ -65,7 +76,7 @@ export async function TreasuryFeed() {
         {rows.map((r) => (
           <li key={r.txHash} className="flex items-center justify-between py-3 text-sm">
             <span className="font-mono">{symbolFor(r.token)}</span>
-            <span>{(Number(r.amount) / 1e18).toFixed(4)}</span>
+            <span>{(Number(r.amount) / 10 ** decimalsFor(r.token)).toFixed(4)}</span>
             <a
               href={`https://celoscan.io/tx/${r.txHash}`}
               target="_blank"
@@ -81,9 +92,13 @@ export async function TreasuryFeed() {
   );
 }
 
+function decimalsFor(token: Address): number {
+  return token.toLowerCase() === MAINNET.tokens.USDC.toLowerCase() ? 6 : 18;
+}
+
 function symbolFor(token: Address): string {
   const t = token.toLowerCase();
-  if (t === MAINNET.tokens.cUSD.toLowerCase()) return "USDC";
+  if (t === MAINNET.tokens.cUSD.toLowerCase()) return "cUSD";
   if (t === MAINNET.tokens.CELO.toLowerCase()) return "CELO";
   if (t === MAINNET.tokens.USDC.toLowerCase()) return "USDC";
   return "?";

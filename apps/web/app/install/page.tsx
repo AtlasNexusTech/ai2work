@@ -10,7 +10,7 @@ interface BeforeInstallPromptEvent extends Event {
   userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
 }
 
-const APP_URL = "https://ai2work.onrender.com";
+const APP_URL = "https://ai2work.atlasnexus.tech";
 const APK_URL = "https://github.com/AtlasNexusTech/ai2work/releases/latest/download/ai2work.apk";
 const QR_URL = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(APK_URL)}`;
 
@@ -195,7 +195,7 @@ export default function InstallPage() {
           </h3>
           <p className="mt-1 text-xs text-muted-foreground">
             Open MetaMask mobile → Browser → go to{" "}
-            <code className="rounded bg-muted px-1 text-[11px]">ai2work.onrender.com</code>
+            <code className="rounded bg-muted px-1 text-[11px]">ai2work.atlasnexus.tech</code>
             {" "}→ Connect wallet.
           </p>
         </div>

@@ -1,0 +1,7 @@
+{
+  "maxStake": "0",
+  "minReward": "500",
+  "minHoursRemaining": 24,
+  "allowedHosts": ["github.com"],
+  "requireRequirementsHash": true
+}

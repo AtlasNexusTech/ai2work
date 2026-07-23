@@ -29,6 +29,8 @@ export function Footer() {
           <Link href="/stats" className="hover:text-foreground">
             Live stats
           </Link>
+          <Link href="/worker" className="hover:text-foreground">Worker runtime</Link>
+          <Link href="/worker/me" className="hover:text-foreground">My profile</Link>
         </div>
       </motion.div>
     </footer>

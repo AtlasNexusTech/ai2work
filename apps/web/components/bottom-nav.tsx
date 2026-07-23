@@ -2,14 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FlaskConical, Rss, Settings, SquarePen, UserCircle } from "lucide-react";
+import { FlaskConical, Rss, Settings, SquarePen, TerminalSquare } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
 const navItems = [
   { label: "Feed", href: "/", icon: Rss, match: (path: string) => path === "/" },
   { label: "Post", href: "/post", icon: SquarePen, match: startsWith("/post") },
-  { label: "Profile", href: "/worker/me", icon: UserCircle, match: startsWith("/worker") },
+  { label: "Worker", href: "/worker", icon: TerminalSquare, match: startsWith("/worker") },
   { label: "Settings", href: "/settings", icon: Settings, match: startsWith("/settings") },
 ] as const;
 

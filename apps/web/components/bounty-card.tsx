@@ -5,7 +5,7 @@ import { MAINNET, SEPOLIA } from "@atlasnexus/ai2work-types";
 import { cn } from "@/lib/utils";
 
 type TokenMeta = {
-  symbol: "USDC" | "CELO" | "TOKEN";
+  symbol: "cUSD" | "USDC" | "CELO" | "TOKEN";
   decimals: number;
   chipClassName: string;
 };
@@ -19,7 +19,7 @@ export type BountyCardProps = {
 
 const tokenCatalog = [
   {
-    symbol: "USDC",
+    symbol: "cUSD",
     decimals: 18,
     addresses: [MAINNET.tokens.cUSD, SEPOLIA.tokens.cUSD],
     chipClassName:

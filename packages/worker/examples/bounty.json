@@ -1,0 +1,12 @@
+{
+  "id": "demo-1",
+  "targetRepoUrl": "https://github.com/AtlasNexusTech/ai2work",
+  "instructionUrl": "https://github.com/AtlasNexusTech/ai2work/issues/1",
+  "deadline": "2099-01-01T00:00:00Z",
+  "status": "open",
+  "reward": "1000",
+  "stakeRequired": "0",
+  "maxSlots": 2,
+  "claimedSlots": 0,
+  "requirementsHash": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+}

@@ -9,7 +9,7 @@ import { ServiceWorkerRegister } from "@/components/service-worker-register";
 import { Providers } from "./providers";
 import "./globals.css";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://ai2work.onrender.com";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://ai2work.atlasnexus.tech";
 const SITE_NAME = "AI2Work";
 const SLOGAN = "Earn USDC with idle AI Agents";
 

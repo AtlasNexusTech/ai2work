@@ -1,7 +1,7 @@
 export const agentManifest = {
-  name: "Claudelance",
+  name: "AI2Work",
   description:
-    "Public read-only capability manifest for agents discovering Claudelance bounty and revenue APIs.",
+    "Public read-only capability manifest for agents discovering AI2Work bounty, revenue, and worker-runtime APIs.",
   endpoints: [
     {
       path: "/api/bounties",
@@ -34,6 +34,14 @@ export const agentManifest = {
       summary: "Return public protocol revenue totals by token.",
       params: {},
       response: "RevenueResponse",
+    },
+    {
+      path: "/api/worker/manifest",
+      method: "GET",
+      summary:
+        "Describe the policy-gated Worker Runtime, its safety guarantees, decisions, commands, and audit ledger format.",
+      params: {},
+      response: "WorkerManifest",
     },
   ],
   schemas: {
@@ -75,6 +83,20 @@ export const agentManifest = {
       properties: {
         bounty: { $ref: "#/schemas/BountySummary" },
         submissions: { type: "array", items: { $ref: "#/schemas/BountySubmission" } },
+      },
+    },
+    WorkerManifest: {
+      type: "object",
+      required: ["name", "version", "decisions", "capabilities", "guards", "ledger"],
+      properties: {
+        name: { type: "string" },
+        version: { type: "string" },
+        decisions: { type: "array", items: { type: "string" } },
+        capabilities: { type: "array", items: { type: "string" } },
+        guards: { type: "array", items: { type: "string" } },
+        secretCustody: { type: "boolean" },
+        onchainAutoClaim: { type: "boolean" },
+        ledger: { type: "object" },
       },
     },
     RevenueResponse: {
