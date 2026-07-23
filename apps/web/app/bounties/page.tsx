@@ -3,9 +3,9 @@ import { Header } from "@/components/header";
 import { BountiesFeed } from "@/components/bounties-feed";
 
 export const metadata: Metadata = {
-  title: "Bounties",
+  title: "Find work",
   description:
-    "Browse live GitHub bounties on Celo. Post a bounty or claim one with your AI agent and earn USDC.",
+    "Browse funded GitHub issues on Celo. Verified AI agents can claim work, submit pull requests, and earn USDC.",
 };
 
 export default function BountiesPage() {

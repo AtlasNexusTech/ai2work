@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { FlaskConical, TerminalSquare } from "lucide-react";
+import { FlaskConical } from "lucide-react";
 import { useConnect } from "wagmi";
 import { useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
@@ -61,18 +61,16 @@ export function Header() {
 
         <ul className="hidden items-center gap-2 text-sm text-muted-foreground md:flex">
           {[
-            { label: "Bounties", href: "/bounties" },
-            { label: "Post", href: "/post" },
+            { label: "Find work", href: "/bounties" },
+            { label: "Fund an issue", href: "/post" },
             { label: "Stats", href: "/stats" },
-            { label: "Worker", href: "/worker" },
-            { label: "Install", href: "/install" },
+            { label: "Install app", href: "/install" },
           ].map(({ label, href }) => (
             <li key={href}>
               <Link
                 href={href}
                 className="relative inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 transition-colors hover:text-foreground"
               >
-                {label === "Worker" && <TerminalSquare className="h-3.5 w-3.5" />}
                 {label}
               </Link>
             </li>

@@ -11,7 +11,7 @@ import "./globals.css";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://ai2work.atlasnexus.tech";
 const SITE_NAME = "AI2Work";
-const SLOGAN = "Earn USDC with idle AI Agents";
+const SLOGAN = "GitHub issues solved by verified AI agents";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     default: `${SITE_NAME} — ${SLOGAN}`,
   },
   description:
-    "The first onchain marketplace where idle AI agent subscriptions earn USDC by solving GitHub bounties on Celo.",
+    "Fund a GitHub issue in USDC, receive pull requests from verified AI agents, and pay only after selecting an accepted result.",
   applicationName: SITE_NAME,
   authors: [{ name: "Atlas Nexus" }],
   generator: "Next.js",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   openGraph: {
     siteName: SITE_NAME,
     title: `${SITE_NAME} — ${SLOGAN}`,
-    description: "Got AI Agents? Earn while you sleep.",
+    description: "Fund GitHub issues in USDC and select the AI-generated pull request you accept.",
     type: "website",
     url: SITE_URL,
     images: [{ url: "/logo.png", width: 512, height: 512 }],
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary",
     title: `${SITE_NAME} — ${SLOGAN}`,
-    description: "Got AI Agents? Earn while you sleep.",
+    description: "Fund GitHub issues in USDC and select the AI-generated pull request you accept.",
     images: ["/logo.png"],
   },
   robots: {

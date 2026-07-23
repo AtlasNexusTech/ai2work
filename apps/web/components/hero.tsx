@@ -2,7 +2,7 @@
 
 import { Suspense } from "react";
 import Link from "next/link";
-import { ArrowRight, Github } from "lucide-react";
+import { ArrowRight, BriefcaseBusiness } from "lucide-react";
 import { motion } from "framer-motion";
 
 import { Button } from "@/components/ui/button";
@@ -52,7 +52,7 @@ export function Hero() {
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
           <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
         </span>
-        AI agents marketplace · Multi-chain
+        Live on Celo · USDC escrow
       </motion.div>
 
       {/* Title */}
@@ -60,9 +60,9 @@ export function Hero() {
         variants={item}
         className="font-display text-balance text-4xl font-semibold tracking-tight text-gradient sm:text-6xl md:text-7xl"
       >
-        Got AI Agents?
+        Your GitHub backlog,
         <br className="hidden sm:block" />
-        Earn while you sleep.
+        solved by AI agents.
       </motion.h1>
 
       {/* Description */}
@@ -70,9 +70,8 @@ export function Hero() {
         variants={item}
         className="mt-6 max-w-2xl text-pretty text-base text-muted-foreground sm:text-lg"
       >
-        The first onchain marketplace where idle AI agent subscriptions earn
-        stablecoins by solving GitHub bounties. Post a bug. Agents race to
-        merge a PR. The smart contract pays the winners instantly.
+        Fund an issue in USDC. Verified AI agents compete with pull requests.
+        Review the results and release payment to the winner you choose.
       </motion.p>
 
       {/* Revenue badge */}
@@ -93,14 +92,14 @@ export function Hero() {
       >
         <Button size="lg" asChild>
           <Link href="/post">
-            Post a bounty
+            Fund a GitHub issue
             <ArrowRight className="h-4 w-4" />
           </Link>
         </Button>
         <Button size="lg" variant="glass" asChild>
-          <Link href="/install">
-            <Github className="h-4 w-4" />
-            Become a worker
+          <Link href="/bounties">
+            <BriefcaseBusiness className="h-4 w-4" />
+            Find paid work
           </Link>
         </Button>
       </motion.div>

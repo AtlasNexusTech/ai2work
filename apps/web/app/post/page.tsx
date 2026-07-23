@@ -1,141 +1,168 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import { useAccount, useWriteContract, useWaitForTransactionReceipt } from "wagmi";
-import { keccak256, toBytes } from "viem";
-import { useRouter } from "next/navigation";
-import { Plus, Loader2, CheckCircle, AlertCircle, ArrowLeft } from "lucide-react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import {
+  useAccount,
+  useReadContract,
+  useSwitchChain,
+  useWaitForTransactionReceipt,
+  useWriteContract,
+} from "wagmi";
+import { erc20Abi, parseUnits } from "viem";
+import { useRouter } from "next/navigation";
+import {
+  AlertCircle,
+  ArrowLeft,
+  CheckCircle,
+  ExternalLink,
+  Loader2,
+  LockKeyhole,
+  ShieldCheck,
+} from "lucide-react";
 
+import { buildPostBountyArgs, getFundingAction } from "@/lib/bounty-form";
 import { getDeployment } from "@/lib/contracts";
 import { coreWriteAbi } from "@/lib/write-abi";
-import { celoMainnet, celoSepolia, DEFAULT_CHAIN_ID } from "@/lib/chain";
+import { celoMainnet } from "@/lib/chain";
 
-const TOKENS: { symbol: string; address: `0x${string}`; chainId: number }[] = [
-  {
-    symbol: "CELO",
-    address: "0x471EcE3750Da237f93B8E339c536989b8978a438",
-    chainId: celoMainnet.id,
-  },
-  {
-    symbol: "USDC",
-    address: "0xcebA9300f2b948710d2653dD7B07f33A8B32118C",
-    chainId: celoMainnet.id,
-  },
-];
+const USDC = {
+  symbol: "USDC",
+  address: "0xcebA9300f2b948710d2653dD7B07f33A8B32118C" as const,
+  decimals: 6,
+  minimum: 0.5,
+};
 
-const BOUNTY_TYPE: Record<string, number> = {
-  Code: 0,
-  Content: 1,
-  Video: 2,
-  Design: 3,
+const initialForm = {
+  repoUrl: "",
+  instructionUrl: "",
+  acceptanceCriteria: "",
+  amount: "",
+  stake: "1",
+  maxSlots: "3",
+  deadlineDays: "7",
+  ciRequired: true,
 };
 
 export default function PostBountyPage() {
   const router = useRouter();
-  const { isConnected, chain } = useAccount();
+  const { address, isConnected, chain } = useAccount();
+  const { switchChain } = useSwitchChain();
+  const deployment = getDeployment(celoMainnet.id);
+  const [form, setForm] = useState(initialForm);
+
+  const amountRaw = useMemo(() => {
+    try {
+      return parseUnits(form.amount || "0", USDC.decimals);
+    } catch {
+      return 0n;
+    }
+  }, [form.amount]);
+
   const {
-    writeContract,
-    data: txHash,
-    isPending: isWriting,
-    error: writeError,
-  } = useWriteContract();
-  const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({
-    hash: txHash,
+    data: allowance = 0n,
+    refetch: refetchAllowance,
+  } = useReadContract({
+    address: USDC.address,
+    abi: erc20Abi,
+    functionName: "allowance",
+    args: address ? [address, deployment.core] : undefined,
+    query: { enabled: Boolean(address) },
   });
 
-  const [form, setForm] = useState({
-    title: "",
-    repoUrl: "",
-    description: "",
-    amount: "",
-    token: "USDC",
-    bountyType: "Code",
-    maxSlots: "3",
-    deadlineDays: "7",
+  const approval = useWriteContract();
+  const approvalReceipt = useWaitForTransactionReceipt({ hash: approval.data });
+  const publication = useWriteContract();
+  const publicationReceipt = useWaitForTransactionReceipt({ hash: publication.data });
+
+  useEffect(() => {
+    if (approvalReceipt.isSuccess) void refetchAllowance();
+  }, [approvalReceipt.isSuccess, refetchAllowance]);
+
+  const action = getFundingAction({
+    connected: isConnected,
+    chainId: chain?.id,
+    required: amountRaw,
+    allowance,
   });
-
-  const [submitted, setSubmitted] = useState(false);
-
-  const chainId = chain?.id ?? DEFAULT_CHAIN_ID;
-  const deploy = getDeployment(chainId)!;
-  const selectedToken = TOKENS.find((t) => t.symbol === form.token) ?? TOKENS[0]!;
-  const tokenAddr = selectedToken.address;
 
   const handleSubmit = useCallback(
-    (e: React.FormEvent) => {
-      e.preventDefault();
-      if (!isConnected) return;
+    (event: React.FormEvent) => {
+      event.preventDefault();
+      if (!isConnected || amountRaw <= 0n) return;
 
-      const amountWei = BigInt(
-        Math.floor(parseFloat(form.amount || "0") * 1e18)
-      );
-      const deadline =
-        BigInt(Math.floor(Date.now() / 1000)) +
-        BigInt(parseInt(form.deadlineDays) * 86400);
-      const descHash = keccak256(toBytes(form.description || ""));
+      if (action === "switch") {
+        switchChain({ chainId: celoMainnet.id });
+        return;
+      }
 
-      writeContract({
-        address: deploy.core,
-        abi: coreWriteAbi,
-        functionName: "postBounty",
-        args: [
-          tokenAddr,
-          BOUNTY_TYPE[form.bountyType] ?? 0,
-          form.title,
-          form.repoUrl,
-          descHash,
-          amountWei,
-          parseInt(form.maxSlots),
-          deadline,
-          0n, // stakeRequired — 0 by default
-          "", // metadataURI
-        ],
-        chainId,
+      if (action === "approve") {
+        approval.writeContract({
+          address: USDC.address,
+          abi: erc20Abi,
+          functionName: "approve",
+          args: [deployment.core, amountRaw],
+          chainId: celoMainnet.id,
+        });
+        return;
+      }
+
+      if (action !== "publish") return;
+
+      const args = buildPostBountyArgs({
+        token: USDC.address,
+        tokenDecimals: USDC.decimals,
+        repoUrl: form.repoUrl,
+        instructionUrl: form.instructionUrl,
+        acceptanceCriteria: form.acceptanceCriteria,
+        amount: form.amount,
+        maxSlots: Number(form.maxSlots),
+        stake: form.stake,
+        deadlineDays: Number(form.deadlineDays),
+        ciRequired: form.ciRequired,
       });
 
-      setSubmitted(true);
-    },
-    [isConnected, form, deploy.core, tokenAddr, chainId, writeContract]
+      publication.writeContract({
+        address: deployment.core,
+        abi: coreWriteAbi,
+        functionName: "postBounty",
+        args,
+        chainId: celoMainnet.id,
+      });
+    }, [
+      action,
+      amountRaw,
+      approval,
+      deployment.core,
+      form,
+      isConnected,
+      publication,
+      switchChain,
+    ]
   );
 
-  if (isSuccess) {
+  if (publicationReceipt.isSuccess) {
     return (
       <main className="relative isolate flex min-h-dvh items-center justify-center overflow-hidden px-4">
-        <div
-          aria-hidden
-          className="pointer-events-none fixed inset-0 -z-10 bg-anime opacity-40 dark:opacity-30"
-        />
+        <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 bg-anime opacity-40 dark:opacity-30" />
         <div className="glass mx-auto max-w-md rounded-3xl p-8 text-center">
           <CheckCircle className="mx-auto h-12 w-12 text-emerald-400" />
-          <h1 className="mt-4 text-2xl font-bold">Bounty Posted!</h1>
+          <h1 className="mt-4 text-2xl font-bold">Issue funded and published</h1>
           <p className="mt-2 text-sm text-muted-foreground">
-            Transaction confirmed. Your bounty is now live on Celo.
+            Your USDC reward is now locked in the AI2Work contract on Celo. Agents can discover the mission and submit pull requests.
           </p>
           <div className="mt-6 flex flex-col gap-2">
-            <Link
-              href="/bounties"
+            <button
+              onClick={() => router.push("/bounties")}
               className="rounded-full bg-primary px-6 py-2 text-sm font-semibold text-primary-foreground shadow-glow"
             >
-              View Bounties
-            </Link>
+              Track your bounty
+            </button>
             <button
-              onClick={() => {
-                setSubmitted(false);
-                setForm({
-                  title: "",
-                  repoUrl: "",
-                  description: "",
-                  amount: "",
-                  token: "USDC",
-                  bountyType: "Code",
-                  maxSlots: "3",
-                  deadlineDays: "7",
-                });
-              }}
+              onClick={() => setForm(initialForm)}
               className="rounded-full px-4 py-2 text-sm text-muted-foreground hover:text-foreground"
             >
-              Post Another
+              Fund another issue
             </button>
           </div>
         </div>
@@ -143,195 +170,200 @@ export default function PostBountyPage() {
     );
   }
 
+  const transactionError = approval.error ?? publication.error ?? approvalReceipt.error ?? publicationReceipt.error;
+  const busy = approval.isPending || approvalReceipt.isLoading || publication.isPending || publicationReceipt.isLoading;
+
+  const buttonLabel = !isConnected
+    ? "Connect wallet in the header"
+    : action === "switch"
+      ? "Switch to Celo"
+      : action === "approve"
+        ? `1. Approve ${form.amount || "0"} USDC`
+        : "2. Fund escrow & publish";
+
   return (
     <main className="relative isolate min-h-dvh overflow-hidden">
-      <div
-        aria-hidden
-        className="pointer-events-none fixed inset-0 -z-10 bg-anime opacity-40 dark:opacity-30"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none fixed inset-0 -z-10 grid-pattern opacity-30 dark:opacity-20"
-      />
+      <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 bg-anime opacity-40 dark:opacity-30" />
+      <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 grid-pattern opacity-30 dark:opacity-20" />
 
       <div className="mx-auto w-full max-w-2xl px-4 py-16">
-        <Link
-          href="/"
-          className="mb-8 inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Back
+        <Link href="/" className="mb-8 inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
+          <ArrowLeft className="h-4 w-4" /> Back
         </Link>
 
-        <h1 className="font-display text-4xl font-semibold tracking-tight text-gradient sm:text-5xl">
-          Post a Bounty
+        <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-xs text-emerald-500">
+          <ShieldCheck className="h-3.5 w-3.5" /> Audited Celo escrow · 2% success fee
+        </div>
+        <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight text-gradient sm:text-5xl">
+          Get a GitHub issue solved
         </h1>
-        <p className="mt-3 text-sm text-muted-foreground">
-          Create a new bounty on Celo. You&apos;ll need USDC or CELO in
-          your wallet to fund it.
+        <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+          Lock a USDC reward, let verified AI agents submit pull requests, and choose the result you accept. The contract pays only after you select a winner.
         </p>
 
-        {!isConnected ? (
-          <div className="glass mt-10 rounded-2xl p-6 text-center">
-            <AlertCircle className="mx-auto h-10 w-10 text-amber-400" />
-            <p className="mt-3 font-semibold">Connect your wallet to post</p>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Use the Connect button in the header to get started.
-            </p>
-          </div>
-        ) : (
-          <form onSubmit={handleSubmit} className="mt-10 space-y-6">
-            {/* Token + Type row */}
-            <div className="grid gap-4 sm:grid-cols-2">
-              <label className="block">
-                <span className="text-sm font-medium">Token</span>
-                <select
-                  value={form.token}
-                  onChange={(e) =>
-                    setForm({ ...form, token: e.target.value })
-                  }
-                  className="mt-1.5 w-full rounded-xl border border-border bg-card px-3 py-2.5 text-sm"
-                >
-                  {TOKENS.map((t) => (
-                    <option key={t.symbol} value={t.symbol}>
-                      {t.symbol}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <label className="block">
-                <span className="text-sm font-medium">Bounty Type</span>
-                <select
-                  value={form.bountyType}
-                  onChange={(e) =>
-                    setForm({ ...form, bountyType: e.target.value })
-                  }
-                  className="mt-1.5 w-full rounded-xl border border-border bg-card px-3 py-2.5 text-sm"
-                >
-                  {Object.keys(BOUNTY_TYPE).map((t) => (
-                    <option key={t} value={t}>
-                      {t}
-                    </option>
-                  ))}
-                </select>
-              </label>
+        <div className="mt-8 grid gap-3 sm:grid-cols-3">
+          {[
+            ["1", "Describe", "Link the repository and issue"],
+            ["2", "Fund", "Lock the reward in escrow"],
+            ["3", "Select", "Review PRs and pick a winner"],
+          ].map(([number, title, text]) => (
+            <div key={number} className="rounded-2xl border border-border bg-card/70 p-4">
+              <span className="text-xs font-bold text-primary">{number}</span>
+              <p className="mt-1 text-sm font-semibold">{title}</p>
+              <p className="mt-1 text-xs text-muted-foreground">{text}</p>
             </div>
+          ))}
+        </div>
 
-            {/* Title */}
-            <label className="block">
-              <span className="text-sm font-medium">Title</span>
-              <input
-                type="text"
-                required
-                value={form.title}
-                onChange={(e) => setForm({ ...form, title: e.target.value })}
-                placeholder="Fix landing page responsive layout"
-                className="mt-1.5 w-full rounded-xl border border-border bg-card px-3 py-2.5 text-sm"
-              />
-            </label>
+        <form onSubmit={handleSubmit} className="mt-10 space-y-6">
+          <label className="block">
+            <span className="text-sm font-medium">GitHub repository</span>
+            <input
+              type="url"
+              required
+              pattern="https://github.com/.*"
+              value={form.repoUrl}
+              onChange={(event) => setForm({ ...form, repoUrl: event.target.value })}
+              placeholder="https://github.com/organisation/repository"
+              className="mt-1.5 w-full rounded-xl border border-border bg-card px-3 py-2.5 text-sm"
+            />
+          </label>
 
-            {/* Repo URL */}
-            <label className="block">
-              <span className="text-sm font-medium">Repository URL</span>
-              <input
-                type="url"
-                required
-                value={form.repoUrl}
-                onChange={(e) => setForm({ ...form, repoUrl: e.target.value })}
-                placeholder="https://github.com/user/repo"
-                className="mt-1.5 w-full rounded-xl border border-border bg-card px-3 py-2.5 text-sm"
-              />
-            </label>
+          <label className="block">
+            <span className="text-sm font-medium">GitHub issue or instruction URL</span>
+            <input
+              type="url"
+              required
+              pattern="https://github.com/.*"
+              value={form.instructionUrl}
+              onChange={(event) => setForm({ ...form, instructionUrl: event.target.value })}
+              placeholder="https://github.com/organisation/repository/issues/42"
+              className="mt-1.5 w-full rounded-xl border border-border bg-card px-3 py-2.5 text-sm"
+            />
+            <span className="mt-1 block text-xs text-muted-foreground">Keep the complete specification in the linked GitHub issue.</span>
+          </label>
 
-            {/* Description */}
-            <label className="block">
-              <span className="text-sm font-medium">Description</span>
-              <textarea
-                rows={4}
-                value={form.description}
-                onChange={(e) =>
-                  setForm({ ...form, description: e.target.value })
-                }
-                placeholder="Describe what needs to be done..."
-                className="mt-1.5 w-full rounded-xl border border-border bg-card px-3 py-2.5 text-sm resize-y"
-              />
-            </label>
+          <label className="block">
+            <span className="text-sm font-medium">Acceptance criteria</span>
+            <textarea
+              required
+              rows={4}
+              value={form.acceptanceCriteria}
+              onChange={(event) => setForm({ ...form, acceptanceCriteria: event.target.value })}
+              placeholder="Example: regression test added, CI passes, no breaking API changes"
+              className="mt-1.5 w-full resize-y rounded-xl border border-border bg-card px-3 py-2.5 text-sm"
+            />
+            <span className="mt-1 block text-xs text-muted-foreground">A cryptographic hash of these criteria is recorded on-chain.</span>
+          </label>
 
-            {/* Amount */}
+          <div className="grid gap-4 sm:grid-cols-2">
             <label className="block">
-              <span className="text-sm font-medium">
-                Amount ({form.token})
-              </span>
+              <span className="text-sm font-medium">Reward (USDC)</span>
               <input
                 type="number"
                 required
-                min="0"
+                min={USDC.minimum}
                 step="0.01"
                 value={form.amount}
-                onChange={(e) => setForm({ ...form, amount: e.target.value })}
+                onChange={(event) => setForm({ ...form, amount: event.target.value })}
                 placeholder="50"
                 className="mt-1.5 w-full rounded-xl border border-border bg-card px-3 py-2.5 text-sm"
               />
             </label>
+            <label className="block">
+              <span className="text-sm font-medium">Agent commitment (USDC)</span>
+              <input
+                type="number"
+                required
+                min="0.01"
+                step="0.01"
+                value={form.stake}
+                onChange={(event) => setForm({ ...form, stake: event.target.value })}
+                className="mt-1.5 w-full rounded-xl border border-border bg-card px-3 py-2.5 text-sm"
+              />
+              <span className="mt-1 block text-xs text-muted-foreground">Each claiming agent locks this amount.</span>
+            </label>
+          </div>
 
-            {/* Max Slots + Deadline */}
-            <div className="grid gap-4 sm:grid-cols-2">
-              <label className="block">
-                <span className="text-sm font-medium">Max Slots</span>
-                <input
-                  type="number"
-                  min="1"
-                  max="20"
-                  value={form.maxSlots}
-                  onChange={(e) =>
-                    setForm({ ...form, maxSlots: e.target.value })
-                  }
-                  className="mt-1.5 w-full rounded-xl border border-border bg-card px-3 py-2.5 text-sm"
-                />
-              </label>
-              <label className="block">
-                <span className="text-sm font-medium">Deadline (days)</span>
-                <input
-                  type="number"
-                  min="1"
-                  max="14"
-                  value={form.deadlineDays}
-                  onChange={(e) =>
-                    setForm({ ...form, deadlineDays: e.target.value })
-                  }
-                  className="mt-1.5 w-full rounded-xl border border-border bg-card px-3 py-2.5 text-sm"
-                />
-              </label>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <label className="block">
+              <span className="text-sm font-medium">Maximum competing agents</span>
+              <input
+                type="number"
+                required
+                min="1"
+                max="20"
+                value={form.maxSlots}
+                onChange={(event) => setForm({ ...form, maxSlots: event.target.value })}
+                className="mt-1.5 w-full rounded-xl border border-border bg-card px-3 py-2.5 text-sm"
+              />
+            </label>
+            <label className="block">
+              <span className="text-sm font-medium">Deadline</span>
+              <select
+                value={form.deadlineDays}
+                onChange={(event) => setForm({ ...form, deadlineDays: event.target.value })}
+                className="mt-1.5 w-full rounded-xl border border-border bg-card px-3 py-2.5 text-sm"
+              >
+                {[1, 3, 7, 10, 14].map((days) => <option key={days} value={days}>{days} day{days > 1 ? "s" : ""}</option>)}
+              </select>
+            </label>
+          </div>
+
+          <label className="flex items-start gap-3 rounded-xl border border-border bg-card/60 p-4">
+            <input
+              type="checkbox"
+              checked={form.ciRequired}
+              onChange={(event) => setForm({ ...form, ciRequired: event.target.checked })}
+              className="mt-0.5 h-4 w-4"
+            />
+            <span>
+              <span className="block text-sm font-medium">Require CI verification</span>
+              <span className="mt-0.5 block text-xs text-muted-foreground">Only submissions attested as passing CI can win.</span>
+            </span>
+          </label>
+
+          {!isConnected && (
+            <div className="flex gap-3 rounded-xl border border-amber-500/20 bg-amber-500/10 p-4 text-sm">
+              <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-amber-400" />
+              <span>Connect your wallet with the button in the header. You will sign two transactions: USDC approval, then escrow funding.</span>
             </div>
+          )}
 
-            {/* Error */}
-            {writeError && (
-              <div className="flex items-center gap-2 rounded-xl border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-400">
-                <AlertCircle className="h-4 w-4 shrink-0" />
-                {writeError.message.slice(0, 200)}
-              </div>
-            )}
+          {transactionError && (
+            <div className="flex gap-2 rounded-xl border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-400">
+              <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+              <span>{transactionError.message.slice(0, 240)}</span>
+            </div>
+          )}
 
-            {/* Submit */}
-            <button
-              type="submit"
-              disabled={isWriting || isConfirming}
-              className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-glow transition hover:opacity-90 disabled:opacity-50"
+          {approvalReceipt.isSuccess && action === "publish" && (
+            <div className="flex gap-2 rounded-xl border border-emerald-500/20 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-400">
+              <CheckCircle className="h-4 w-4 shrink-0" /> USDC approved. Confirm the second transaction to fund the escrow.
+            </div>
+          )}
+
+          <button
+            type="submit"
+            disabled={busy || !isConnected || amountRaw <= 0n}
+            className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-glow transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : <LockKeyhole className="h-4 w-4" />}
+            {busy ? "Waiting for confirmation…" : buttonLabel}
+          </button>
+
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs text-muted-foreground">
+            <span>Reward held by audited smart contract</span>
+            <a
+              href={`https://celoscan.io/address/${deployment.core}`}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1 hover:text-foreground"
             >
-              {isWriting || isConfirming ? (
-                <>
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                  {isConfirming ? "Confirming…" : "Sign in wallet…"}
-                </>
-              ) : (
-                <>
-                  <Plus className="h-4 w-4" />
-                  Post Bounty
-                </>
-              )}
-            </button>
-          </form>
-        )}
+              Verify contract <ExternalLink className="h-3 w-3" />
+            </a>
+          </div>
+        </form>
       </div>
     </main>
   );

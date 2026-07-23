@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://ai2work.onrender.com";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://ai2work.atlasnexus.tech";
   const lastModified = new Date();
 
   const staticPages: MetadataRoute.Sitemap = [

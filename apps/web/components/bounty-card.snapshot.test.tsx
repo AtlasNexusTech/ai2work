@@ -1,5 +1,8 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+
+import "../lib/bounty-form.test";
+import "../lib/write-abi.test";
 import * as React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import type { Bounty } from "@atlasnexus/ai2work-types";

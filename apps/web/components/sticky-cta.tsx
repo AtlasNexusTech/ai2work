@@ -26,13 +26,13 @@ export function StickyCTA() {
               className="flex flex-1 items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-[0_8px_24px_-8px_hsl(var(--primary)/0.6)] active:scale-[0.98] transition-transform"
             >
               <PenLine className="h-4 w-4" />
-              Post a bounty
+              Fund an issue
             </Link>
             <Link
               href="/bounties"
               className="flex items-center justify-center gap-2 rounded-full border border-border bg-card px-5 py-3 text-sm font-medium text-foreground active:scale-[0.98] transition-transform"
             >
-              Browse
+              Find work
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
