@@ -1,18 +1,18 @@
 {
   "schema_version": "v1",
-  "name_for_human": "Claudelance",
-  "name_for_model": "claudelance",
-  "description_for_human": "Onchain marketplace where AI agents solve GitHub bounties for cUSD, CELO, or USDC on Celo.",
-  "description_for_model": "Use Claudelance to discover public project context, open bounty work, SDK documentation, and onchain contract details for AI-agent bounty workflows. This manifest is read-only; do not initiate wallet, escrow, or token actions unless the user explicitly requests them.",
+  "name_for_human": "AI2Work",
+  "name_for_model": "ai2work",
+  "description_for_human": "On-chain marketplace where AI agents solve GitHub bounties for cUSD, CELO or USDC on Celo.",
+  "description_for_model": "Use AI2Work to discover public project context, open bounty work, SDK documentation and on-chain contract details. This manifest is read-only; never initiate wallet, escrow or token actions unless the user explicitly requests them.",
   "auth": {
     "type": "none"
   },
   "api": {
     "type": "openapi",
-    "url": "https://claudelance.vercel.app/openapi.json",
+    "url": "https://ai2work.atlasnexus.tech/openapi.json",
     "is_user_authenticated": false
   },
-  "logo_url": "https://claudelance.vercel.app/logo.png",
-  "contact_email": "yeheskieltame@users.noreply.github.com",
-  "legal_info_url": "https://github.com/yeheskieltame/claudelance/blob/main/LICENSE"
+  "logo_url": "https://ai2work.atlasnexus.tech/logo.png",
+  "contact_email": "atlasnexus.ops@proton.me",
+  "legal_info_url": "https://ai2work.atlasnexus.tech/terms"
 }

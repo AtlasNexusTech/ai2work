@@ -15,7 +15,10 @@ const { readFileSync } = require('fs');
 const { resolve } = require('path');
 
 // ── Config ─────────────────────────────────────────────────────────
-const PRIVATE_KEY = process.env.PRIVATE_KEY || '0x8cd12359ae19e76c38f7f3d09cac56eac407ca1913c229765b2050348af77109';
+const PRIVATE_KEY = process.env.PRIVATE_KEY;
+if (!PRIVATE_KEY) {
+  throw new Error('PRIVATE_KEY environment variable is required');
+}
 const ARTIFACT_PATH = resolve(__dirname, '..', '..', '..', 'contracts', 'out', 'ClaudelanceCore.sol', 'ClaudelanceCore.json');
 
 const ERC8004_ADDRESSES = {

@@ -18,7 +18,7 @@ test("public product copy makes an honest security claim", () => {
 
   assert.doesNotMatch(publicUi, /audited(?: smart)? contract|audited (?:USDC|Celo) escrow/i);
   assert.match(publicUi, /not independently audited/i);
-  assert.match(publicUi, /83 (?:unit )?tests/i);
+  assert.match(publicUi, /79 unit tests \+ 4 invariant tests/i);
   assert.match(publicUi, /Slither/i);
 });
 
@@ -31,9 +31,19 @@ test("the public interface consistently uses the AI2Work brand", () => {
     read("public/llms-full.txt"),
     read("public/openapi.json"),
     read("public/schemas/agent-manifest.schema.json"),
+    read("public/.well-known/ai-plugin.json"),
+    read("android/twa-manifest.json"),
+    read("android/app/src/main/AndroidManifest.xml"),
   ].join("\n");
-  assert.doesNotMatch(discovery, /AI Lance|Claudelance|yeheskieltame|claudelance\.vercel\.app/i);
+  assert.doesNotMatch(discovery, /AI Lance|Claudelance|yeheskieltame|claudelance\.vercel\.app|ai2work\.onrender\.com/i);
   assert.match(discovery, /AI2Work/);
+});
+
+test("deployment tooling never contains a fallback private key", () => {
+  const deployScript = read("scripts/deploy-evm.cjs");
+  assert.doesNotMatch(deployScript, /PRIVATE_KEY\s*=\s*process\.env\.PRIVATE_KEY\s*\|\|/);
+  assert.doesNotMatch(deployScript, /0x[0-9a-f]{64}/i);
+  assert.match(deployScript, /PRIVATE_KEY environment variable is required/);
 });
 
 test("RPC failures are shown as unavailable and never coerced to zero", () => {

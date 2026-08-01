@@ -16,7 +16,7 @@
 
             <meta-data
                 android:name="android.support.customtabs.trusted.DEFAULT_URL"
-                android:value="https://ai2work.onrender.com" />
+                android:value="https://ai2work.atlasnexus.tech" />
 
             <meta-data
                 android:name="android.support.customtabs.trusted.STATUS_BAR_COLOR"
@@ -53,7 +53,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data
                     android:scheme="https"
-                    android:host="ai2work.onrender.com" />
+                    android:host="ai2work.atlasnexus.tech" />
             </intent-filter>
         </activity>
 

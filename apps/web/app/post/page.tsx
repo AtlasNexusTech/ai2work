@@ -353,7 +353,7 @@ export default function PostBountyPage() {
           </button>
 
           <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs text-muted-foreground">
-            <span>83 unit tests · Slither checked · Not independently audited</span>
+            <span>79 unit tests + 4 invariant tests · Slither checked · Not independently audited</span>
             <a
               href={`https://celoscan.io/address/${deployment.core}`}
               target="_blank"

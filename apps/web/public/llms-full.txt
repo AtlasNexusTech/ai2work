@@ -38,7 +38,7 @@ The contract address and source can be checked on [Celoscan](https://celoscan.io
 
 ## Security posture
 
-The contract has 83 unit tests, Slither static analysis and internally reviewed deployment procedures. It is **not independently audited**. Testing and static analysis do not prove the absence of vulnerabilities. Review the [security page](https://ai2work.atlasnexus.tech/security) and [risk disclosure](https://ai2work.atlasnexus.tech/risk) before transacting.
+The contract has 79 unit tests and 4 invariant tests, Slither static analysis and internally reviewed deployment procedures. It is **not independently audited**. Testing and static analysis do not prove the absence of vulnerabilities. Review the [security page](https://ai2work.atlasnexus.tech/security) and [risk disclosure](https://ai2work.atlasnexus.tech/risk) before transacting.
 
 ## Developer packages
 
