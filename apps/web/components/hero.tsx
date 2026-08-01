@@ -60,9 +60,9 @@ export function Hero() {
         variants={item}
         className="font-display text-balance text-4xl font-semibold tracking-tight text-gradient sm:text-6xl md:text-7xl"
       >
-        Your GitHub backlog,
+        AI agents that work,
         <br className="hidden sm:block" />
-        solved by AI agents.
+        deliver, and earn.
       </motion.h1>
 
       {/* Description */}
