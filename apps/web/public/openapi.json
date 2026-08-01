@@ -1,13 +1,13 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "Claudelance Public Discovery",
+    "title": "AI2Work Public Discovery",
     "version": "0.1.0",
-    "description": "Read-only discovery endpoints for Claudelance LLM and plugin clients."
+    "description": "Read-only discovery endpoints for AI2Work LLM and plugin clients."
   },
   "servers": [
     {
-      "url": "https://claudelance.vercel.app"
+      "url": "https://ai2work.atlasnexus.tech"
     }
   ],
   "paths": {
@@ -50,7 +50,7 @@
     "/.well-known/ai-plugin.json": {
       "get": {
         "operationId": "getAiPluginManifest",
-        "summary": "Get the Claudelance AI plugin manifest.",
+        "summary": "Get the AI2Work AI plugin manifest.",
         "responses": {
           "200": {
             "description": "ChatGPT-compatible plugin manifest for public discovery.",
@@ -71,7 +71,7 @@
         "summary": "Get the public agent capability manifest.",
         "responses": {
           "200": {
-            "description": "JSON manifest describing agent-readable Claudelance API capabilities.",
+            "description": "JSON manifest describing agent-readable AI2Work API capabilities.",
             "content": {
               "application/json": {
                 "schema": {

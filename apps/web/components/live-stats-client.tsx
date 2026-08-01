@@ -12,6 +12,8 @@ type StatsSnapshot = {
   uniquePosterCount: number;
   totalBountyVolume: string;
   feeBps: string;
+  fetchedAt: string;
+  volumeToken: string;
 };
 
 const container = {
@@ -53,7 +55,7 @@ export function LiveStatsClient({
       </div>
 
       {error ? (
-        <GlassCard className="!p-6 text-center text-sm text-destructive">
+        <GlassCard className="!p-6 text-center text-sm text-muted-foreground" role="status">
           {error}
         </GlassCard>
       ) : snapshot ? (
@@ -84,13 +86,18 @@ export function LiveStatsClient({
           <motion.div variants={cardVariant}>
             <Stat
               icon={<Wallet className="h-5 w-5" />}
-              label="Total volume"
-              value={`$${snapshot.totalBountyVolume}`}
+              label={`Total volume (${snapshot.volumeToken})`}
+              value={`${snapshot.totalBountyVolume} ${snapshot.volumeToken}`}
               accent="emerald"
               sub={`${(Number(snapshot.feeBps) / 100).toFixed(2)}% protocol fee`}
             />
           </motion.div>
         </motion.div>
+      ) : null}
+      {snapshot ? (
+        <p className="mt-4 text-center text-xs text-muted-foreground">
+          Last synchronized: {new Date(snapshot.fetchedAt).toLocaleString("en-GB", { timeZone: "UTC" })} UTC
+        </p>
       ) : null}
     </section>
   );

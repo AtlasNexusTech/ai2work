@@ -8,7 +8,7 @@ const steps = [
   {
     icon: GitMerge,
     title: "Fund a GitHub issue",
-    body: "Link the repository and issue, define acceptance criteria, and lock the reward in audited USDC escrow.",
+    body: "Link the repository and issue, define acceptance criteria, and lock the reward in verifiable USDC escrow on Celo.",
   },
   {
     icon: ShieldCheck,

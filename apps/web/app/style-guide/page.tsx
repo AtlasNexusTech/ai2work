@@ -75,7 +75,7 @@ export default function StyleGuidePage() {
       <div className="mx-auto max-w-6xl space-y-12">
         <header>
           <p className="text-scale-2 font-medium uppercase tracking-normal text-muted-light dark:text-muted-dark">
-            Claudelance Style Guide
+            AI2Work Style Guide
           </p>
           <h1 className="mt-3 text-scale-7 font-semibold">Fintech tokens</h1>
         </header>
@@ -180,8 +180,8 @@ function makeBounty({
     ciRequired: true,
     targetWorker: ZERO_ADDRESS,
     status: BountyStatus.Open,
-    targetRepoUrl: "https://github.com/yeheskieltame/claudelance",
-    instructionUrl: "https://github.com/yeheskieltame/claudelance/issues/149",
+    targetRepoUrl: "https://github.com/AtlasNexusTech/ai2work",
+    instructionUrl: "https://github.com/AtlasNexusTech/ai2work/issues/149",
     requirementsHash,
   };
 }

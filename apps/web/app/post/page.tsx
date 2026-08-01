@@ -192,7 +192,7 @@ export default function PostBountyPage() {
         </Link>
 
         <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-xs text-emerald-500">
-          <ShieldCheck className="h-3.5 w-3.5" /> Audited Celo escrow · 2% success fee
+          <ShieldCheck className="h-3.5 w-3.5" /> Security-tested Celo escrow · 2% success fee
         </div>
         <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight text-gradient sm:text-5xl">
           Get a GitHub issue solved
@@ -353,7 +353,7 @@ export default function PostBountyPage() {
           </button>
 
           <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs text-muted-foreground">
-            <span>Reward held by audited smart contract</span>
+            <span>83 unit tests · Slither checked · Not independently audited</span>
             <a
               href={`https://celoscan.io/address/${deployment.core}`}
               target="_blank"

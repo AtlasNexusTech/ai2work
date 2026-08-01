@@ -11,6 +11,8 @@ export async function LiveStats() {
     uniquePosterCount: number;
     totalBountyVolume: string;
     feeBps: string;
+    fetchedAt: string;
+    volumeToken: string;
   } | null = null;
   let error: string | null = null;
 
@@ -22,9 +24,11 @@ export async function LiveStats() {
       uniquePosterCount: Number(stats.uniquePosterCount),
       totalBountyVolume: formatCUSD(stats.totalBountyVolume),
       feeBps: (stats.feeBps ?? 200).toString(),
+      fetchedAt: stats.fetchedAt,
+      volumeToken: stats.volumeToken,
     };
   } catch (e) {
-    error = e instanceof Error ? e.message : "Unable to read live state.";
+    error = "On-chain data temporarily unavailable. No zero values have been substituted.";
   }
 
   return <LiveStatsClient snapshot={snapshot} error={error} />;

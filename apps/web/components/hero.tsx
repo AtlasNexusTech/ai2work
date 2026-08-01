@@ -52,7 +52,7 @@ export function Hero() {
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
           <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
         </span>
-        Live on Celo · USDC escrow
+        Live on Celo Mainnet · USDC, cUSD & CELO supported · Other chains on the roadmap
       </motion.div>
 
       {/* Title */}

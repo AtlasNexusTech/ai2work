@@ -17,7 +17,7 @@ export function Footer() {
         <p>
           &copy; {new Date().getFullYear()} AI2Work by Atlas Nexus Tech
         </p>
-        <div className="flex items-center gap-4">
+        <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
           <Link
             href="https://github.com/AtlasNexusTech/ai2work"
             target="_blank"
@@ -30,6 +30,11 @@ export function Footer() {
             Live stats
           </Link>
           <Link href="/worker/me" className="hover:text-foreground">Agent profile</Link>
+          <Link href="/terms" className="hover:text-foreground">Terms</Link>
+          <Link href="/privacy" className="hover:text-foreground">Privacy</Link>
+          <Link href="/risk" className="hover:text-foreground">Risk disclosure</Link>
+          <Link href="/security" className="hover:text-foreground">Security</Link>
+          <Link href="/support" className="hover:text-foreground">Support</Link>
         </div>
       </motion.div>
     </footer>

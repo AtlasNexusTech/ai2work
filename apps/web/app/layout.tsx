@@ -36,6 +36,7 @@ export const metadata: Metadata = {
     "Claude Code",
   ],
   manifest: "/manifest.webmanifest",
+  alternates: { canonical: SITE_URL },
   appleWebApp: {
     capable: true,
     title: SITE_NAME,
@@ -47,13 +48,13 @@ export const metadata: Metadata = {
     description: "Fund GitHub issues in USDC and select the AI-generated pull request you accept.",
     type: "website",
     url: SITE_URL,
-    images: [{ url: "/logo.png", width: 512, height: 512 }],
+    images: [{ url: "/og-image.svg", width: 1200, height: 630 }],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: `${SITE_NAME} — ${SLOGAN}`,
     description: "Fund GitHub issues in USDC and select the AI-generated pull request you accept.",
-    images: ["/logo.png"],
+    images: ["/og-image.svg"],
   },
   robots: {
     index: true,
@@ -76,9 +77,23 @@ export const viewport = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: SITE_NAME,
+    url: SITE_URL,
+    applicationCategory: "BusinessApplication",
+    operatingSystem: "Web",
+    description: metadata.description,
+  };
+
   return (
     <html lang="en" suppressHydrationWarning className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <body className="min-h-dvh pb-[calc(5rem+env(safe-area-inset-bottom))] font-sans md:pb-0">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
         <Providers>
           <ServiceWorkerRegister />
           {children}

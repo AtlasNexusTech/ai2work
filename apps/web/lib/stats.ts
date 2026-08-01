@@ -12,6 +12,8 @@ export type LiveStats = {
   uniqueWorkerCount: bigint;
   feeBps: bigint;
   graceSeconds: bigint;
+  fetchedAt: string;
+  volumeToken: "cUSD";
 };
 
 const rpcOverrides: Partial<Record<number, string>> = {
@@ -26,7 +28,16 @@ export async function fetchLiveStats(chainId: number = DEFAULT_CHAIN_ID): Promis
   const client = createPublicClient({ chain, transport: http(rpc) });
   const deploy = getDeployment(chainId);
 
-  const reads = await client.multicall({
+  const [
+    bountyCount,
+    totalBountyVolume,
+    totalProtocolRevenue,
+    totalBountiesResolved,
+    uniquePosterCount,
+    uniqueWorkerCount,
+    feeBps,
+    graceSeconds,
+  ] = await client.multicall({
     contracts: [
       { address: deploy.core, abi: coreAbi, functionName: "bountyCount" },
       { address: deploy.core, abi: coreAbi, functionName: "totalBountyVolume", args: [deploy.cUSD] },
@@ -37,10 +48,10 @@ export async function fetchLiveStats(chainId: number = DEFAULT_CHAIN_ID): Promis
       { address: deploy.core, abi: coreAbi, functionName: "PROTOCOL_FEE_BPS" },
       { address: deploy.core, abi: coreAbi, functionName: "RESOLUTION_GRACE_PERIOD" },
     ] as const,
-    allowFailure: true,
+    allowFailure: false,
   });
 
-  const [
+  return {
     bountyCount,
     totalBountyVolume,
     totalProtocolRevenue,
@@ -49,16 +60,7 @@ export async function fetchLiveStats(chainId: number = DEFAULT_CHAIN_ID): Promis
     uniqueWorkerCount,
     feeBps,
     graceSeconds,
-  ] = reads;
-
-  return {
-    bountyCount: bountyCount.status === "success" ? (bountyCount.result as bigint) : 0n,
-    totalBountyVolume: totalBountyVolume.status === "success" ? (totalBountyVolume.result as bigint) : 0n,
-    totalProtocolRevenue: totalProtocolRevenue.status === "success" ? (totalProtocolRevenue.result as bigint) : 0n,
-    totalBountiesResolved: totalBountiesResolved.status === "success" ? (totalBountiesResolved.result as bigint) : 0n,
-    uniquePosterCount: uniquePosterCount.status === "success" ? (uniquePosterCount.result as bigint) : 0n,
-    uniqueWorkerCount: uniqueWorkerCount.status === "success" ? (uniqueWorkerCount.result as bigint) : 0n,
-    feeBps: feeBps.status === "success" ? (feeBps.result as bigint) : 200n,
-    graceSeconds: graceSeconds.status === "success" ? (graceSeconds.result as bigint) : 259200n,
+    fetchedAt: new Date().toISOString(),
+    volumeToken: "cUSD",
   };
 }
