@@ -4,7 +4,7 @@ import { Hammer, Users, Wallet } from "lucide-react";
 import { motion } from "framer-motion";
 
 import { GlassCard } from "@/components/ui/card";
-import { AnimatedCounter } from "@/components/animated-section";
+
 
 type StatsSnapshot = {
   totalBountiesResolved: number;
@@ -132,10 +132,7 @@ function Stat({
       <p className="mt-3 text-xs uppercase tracking-wider text-muted-foreground">
         {label}
       </p>
-      <AnimatedCounter
-        value={value}
-        className="mt-1 font-display text-3xl font-semibold tracking-tight"
-      />
+      <p className="mt-1 font-display text-3xl font-semibold tracking-tight">{value}</p>
       {sub && <p className="mt-1 text-xs text-muted-foreground">{sub}</p>}
     </GlassCard>
   );

@@ -39,10 +39,13 @@ test("the public interface consistently uses the AI2Work brand", () => {
 test("RPC failures are shown as unavailable and never coerced to zero", () => {
   const statsReader = read("lib/stats.ts");
   const statsPage = read("app/stats/page.tsx");
+  const statsClient = read("components/live-stats-client.tsx");
 
   assert.doesNotMatch(statsReader, /status === "success"[^\n]+:\s*0n/);
   assert.doesNotMatch(statsPage, /catch\(\(\) => \(\{[\s\S]*?bountyCount:\s*0n/);
   assert.match(statsPage, /temporarily unavailable/i);
+  assert.doesNotMatch(statsClient, /AnimatedCounter/);
+  assert.match(statsClient, />\{value\}<\/p>/);
 });
 
 test("SEO metadata uses one canonical production domain", () => {
