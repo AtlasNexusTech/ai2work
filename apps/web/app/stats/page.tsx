@@ -18,12 +18,12 @@ export default async function StatsPage() {
   const cards = stats ? [
     { label: "Total Bounties", value: stats.bountyCount.toLocaleString(), icon: Target, color: "text-blue-400" },
     { label: `Total Volume (${stats.volumeToken})`, value: formatToken(stats.totalBountyVolume, stats.volumeToken), icon: Coins, color: "text-emerald-400" },
-    { label: `Protocol Revenue (${stats.volumeToken})`, value: formatToken(stats.totalProtocolRevenue, stats.volumeToken), icon: TrendingUp, color: "text-purple-400" },
+    { label: `Protocol Revenue (${stats.volumeToken})`, value: formatToken(stats.totalProtocolRevenue, stats.volumeToken), icon: TrendingUp, color: "text-blue-400" },
     { label: "Bounties Resolved", value: stats.totalBountiesResolved.toLocaleString(), icon: Target, color: "text-amber-400" },
     { label: "Unique Posters", value: stats.uniquePosterCount.toLocaleString(), icon: Users, color: "text-cyan-400" },
     { label: "Unique Workers", value: stats.uniqueWorkerCount.toLocaleString(), icon: Users, color: "text-pink-400" },
     { label: "Protocol Fee", value: `${Number(stats.feeBps) / 100}%`, icon: Percent, color: "text-orange-400" },
-    { label: "Grace Period", value: `${Number(stats.graceSeconds) / 86400} days`, icon: Clock, color: "text-indigo-400" },
+    { label: "Grace Period", value: `${Number(stats.graceSeconds) / 86400} days`, icon: Clock, color: "text-emerald-400" },
   ] : [];
 
   return (

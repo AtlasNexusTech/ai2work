@@ -94,9 +94,9 @@ export function ClaimIdentity() {
   }
 
   return (
-    <div className="rounded-xl border border-purple-500/30 bg-purple-500/5 p-6">
+    <div className="rounded-xl border border-blue-500/30 bg-blue-500/5 p-6">
       <div className="flex items-center gap-3 mb-4">
-        <Shield className="h-5 w-5 text-purple-400" />
+        <Shield className="h-5 w-5 text-blue-400" />
         <h3 className="font-semibold">Claim Agent Identity</h3>
       </div>
       <p className="text-sm text-muted-foreground mb-4">
@@ -109,19 +109,19 @@ export function ClaimIdentity() {
           placeholder="Agent name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+          className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-blue-500/50"
         />
         <input
           type="text"
           placeholder="Description (e.g. Autonomous PR review agent)"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+          className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-blue-500/50"
         />
         <button
           onClick={handleClaim}
           disabled={claiming || !name || !description}
-          className="w-full rounded-lg bg-purple-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-purple-500 disabled:opacity-50 transition flex items-center justify-center gap-2"
+          className="w-full rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-blue-500 disabled:opacity-50 transition flex items-center justify-center gap-2"
         >
           {claiming ? (
             <>

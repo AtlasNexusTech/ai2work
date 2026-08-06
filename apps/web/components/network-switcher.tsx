@@ -24,10 +24,10 @@ const NETWORK_TO_CHAIN_ID: Record<ChainNetwork, number> = {
 
 const SOLANA_META = {
   name: "Solana",
-  color: "bg-gradient-to-r from-purple-500 to-green-400",
-  textColor: "text-purple-400",
-  borderColor: "border-purple-500/30",
-  hoverColor: "hover:bg-purple-500/10",
+  color: "bg-gradient-to-r from-blue-500 to-emerald-400",
+  textColor: "text-blue-400",
+  borderColor: "border-blue-500/30",
+  hoverColor: "hover:bg-blue-500/10",
   status: "live" as const,
 };
 
@@ -126,7 +126,7 @@ export function NetworkSwitcher() {
                     disabled={isSwitching || isActive}
                     className={`flex w-full items-center gap-2 rounded-md px-3 py-2 text-xs transition disabled:opacity-40 ${style.hoverColor}`}
                   >
-                    <span className="h-2 w-2 rounded-full bg-gradient-to-r from-purple-500 to-green-400" />
+                    <span className="h-2 w-2 rounded-full bg-gradient-to-r from-blue-500 to-emerald-400" />
                     <span className="flex-1 text-left">{style.name}</span>
                     {isActive && (
                       <span className="h-1.5 w-1.5 rounded-full bg-current" />

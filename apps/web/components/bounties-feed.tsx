@@ -70,7 +70,7 @@ const TOKEN_STYLES: Record<string, string> = {
   cusd: "bg-emerald-500/12 text-emerald-700 ring-emerald-500/25 dark:text-emerald-300",
   celo: "bg-amber-400/15 text-amber-800 ring-amber-400/30 dark:text-amber-200",
   usdc: "bg-sky-500/12 text-sky-700 ring-sky-500/25 dark:text-sky-300",
-  github: "bg-violet-500/12 text-violet-700 ring-violet-500/25 dark:text-violet-300",
+  github: "bg-blue-500/12 text-blue-700 ring-blue-500/25 dark:text-blue-300",
 };
 
 const BLACKLIST = ["orchestration-agent"];
@@ -355,7 +355,7 @@ function GitHubBountyCard({ bounty }: { bounty: ApiBounty }) {
       href={url}
       target="_blank"
       rel="noreferrer"
-      className="group flex min-h-48 flex-col rounded-2xl border border-violet-500/20 bg-card/80 p-5 shadow-sm backdrop-blur transition motion-safe:hover:-translate-y-1 motion-safe:hover:shadow-glass"
+      className="group flex min-h-48 flex-col rounded-2xl border border-blue-500/20 bg-card/80 p-5 shadow-sm backdrop-blur transition motion-safe:hover:-translate-y-1 motion-safe:hover:shadow-glass"
     >
       <div className="flex items-start justify-between gap-3">
         <span className={cn("inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-semibold ring-1", TOKEN_STYLES.github)}>
@@ -370,12 +370,12 @@ function GitHubBountyCard({ bounty }: { bounty: ApiBounty }) {
       </div>
 
       {repo && (
-        <p className="mt-2 text-xs font-medium text-violet-500 dark:text-violet-400">
+        <p className="mt-2 text-xs font-medium text-blue-500 dark:text-blue-400">
           {repo}
         </p>
       )}
 
-      <h2 className="mt-1 line-clamp-1 text-lg font-semibold tracking-tight group-hover:text-violet-500 transition-colors">
+      <h2 className="mt-1 line-clamp-1 text-lg font-semibold tracking-tight group-hover:text-blue-500 transition-colors">
         {bounty.title ?? "Untitled"}
       </h2>
       <p className="mt-2 line-clamp-3 text-sm leading-6 text-muted-foreground">
@@ -394,7 +394,7 @@ function GitHubBountyCard({ bounty }: { bounty: ApiBounty }) {
           {timeAgo}
         </span>
         {commentsCount > 0 && (
-          <span className="inline-flex items-center gap-1 text-violet-500 dark:text-violet-400">
+          <span className="inline-flex items-center gap-1 text-blue-500 dark:text-blue-400">
             <MessageSquare className="h-3 w-3" />
             {commentsCount}
           </span>

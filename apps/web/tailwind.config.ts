@@ -5,7 +5,7 @@ const fintechColors = {
   bg: { light: "#F7F9FC", dark: "#090B12" },
   fg: { light: "#101522", dark: "#F5F7FB" },
   muted: { light: "#647084", dark: "#9AA5B8" },
-  accent: { light: "#4F46E5", dark: "#9B8CFF" },
+  accent: { light: "#2563EB", dark: "#60A5FA" },
   success: { light: "#087F5B", dark: "#4ADE80" },
   warn: { light: "#9A5B00", dark: "#FACC15" },
   danger: { light: "#C2410C", dark: "#FB7185" },
@@ -86,9 +86,9 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ["var(--font-geist-sans)", "system-ui", "sans-serif"],
-        mono: ["var(--font-geist-mono)", "ui-monospace", "monospace"],
-        display: ["var(--font-display)", "var(--font-geist-sans)", "sans-serif"],
+        sans: ["var(--font-sans)", "system-ui", "sans-serif"],
+        mono: ["ui-monospace", "SFMono-Regular", "monospace"],
+        display: ["var(--font-display)", "var(--font-sans)", "sans-serif"],
       },
       fontSize: {
         "scale-1": ["12px", { lineHeight: "16px" }],

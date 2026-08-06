@@ -10,7 +10,7 @@
     --card: 0 0% 100%;
     --card-foreground: 235 32% 12%;
 
-    --primary: 252 80% 60%;
+    --primary: 221 83% 53%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 220 25% 92%;
@@ -19,15 +19,15 @@
     --muted: 220 20% 94%;
     --muted-foreground: 235 12% 42%;
 
-    --accent: 270 70% 88%;
-    --accent-foreground: 252 60% 30%;
+    --accent: 160 60% 92%;
+    --accent-foreground: 160 84% 30%;
 
     --destructive: 0 72% 55%;
     --destructive-foreground: 0 0% 100%;
 
     --border: 220 18% 88%;
     --input: 220 18% 88%;
-    --ring: 252 80% 60%;
+    --ring: 221 83% 53%;
 
     --radius: 1rem;
 
@@ -44,7 +44,7 @@
     --card: 235 28% 12%;
     --card-foreground: 220 20% 96%;
 
-    --primary: 258 90% 70%;
+    --primary: 217 91% 60%;
     --primary-foreground: 235 32% 8%;
 
     --secondary: 235 24% 18%;
@@ -53,15 +53,15 @@
     --muted: 235 24% 16%;
     --muted-foreground: 220 12% 68%;
 
-    --accent: 268 50% 28%;
-    --accent-foreground: 270 90% 92%;
+    --accent: 160 50% 16%;
+    --accent-foreground: 160 90% 90%;
 
     --destructive: 0 65% 50%;
     --destructive-foreground: 220 20% 96%;
 
     --border: 235 24% 22%;
     --input: 235 24% 22%;
-    --ring: 258 90% 70%;
+    --ring: 217 91% 60%;
 
     --glass-bg: 235 32% 10% / 0.55;
     --glass-border: 220 18% 100% / 0.12;
@@ -115,11 +115,10 @@
   .text-gradient {
     background: linear-gradient(
       135deg,
-      hsl(var(--primary)) 0%,
-      hsl(258 90% 65%) 25%,
-      hsl(280 80% 60%) 50%,
-      hsl(252 80% 60%) 75%,
-      hsl(var(--primary)) 100%
+      hsl(221 83% 53%) 0%,
+      hsl(190 80% 45%) 40%,
+      hsl(160 84% 39%) 80%,
+      hsl(221 83% 53%) 100%
     );
     background-size: 300% 300%;
     -webkit-background-clip: text;
@@ -129,14 +128,20 @@
   }
 
   .bg-anime {
-    background-image: var(--bg-image-light);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, hsl(221 83% 53% / 0.16), transparent 55%),
+      radial-gradient(ellipse at 100% 30%, hsl(160 84% 39% / 0.14), transparent 55%),
+      radial-gradient(ellipse at 0% 100%, hsl(221 83% 53% / 0.10), transparent 60%);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
   }
 
   .dark .bg-anime {
-    background-image: var(--bg-image-dark);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, hsl(217 91% 60% / 0.18), transparent 55%),
+      radial-gradient(ellipse at 100% 30%, hsl(160 84% 39% / 0.14), transparent 55%),
+      radial-gradient(ellipse at 0% 100%, hsl(217 91% 60% / 0.14), transparent 60%);
   }
 
   .grid-pattern {
