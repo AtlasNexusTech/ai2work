@@ -79,32 +79,26 @@
     @apply bg-background text-foreground antialiased;
     font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1;
     min-height: 100dvh;
-    background-image:
-      radial-gradient(ellipse at 12% -10%, hsl(var(--primary) / 0.18), transparent 55%),
-      radial-gradient(ellipse at 110% 10%, hsl(var(--accent) / 0.35), transparent 60%),
-      radial-gradient(ellipse at 50% 110%, hsl(var(--primary) / 0.14), transparent 60%);
+    background-image: radial-gradient(ellipse at 50% 0%, hsl(var(--primary) / 0.06), transparent 55%);
     background-attachment: fixed;
   }
 
   .dark body {
-    background-image:
-      radial-gradient(ellipse at 10% -10%, hsl(var(--primary) / 0.28), transparent 55%),
-      radial-gradient(ellipse at 110% 15%, hsl(258 80% 55% / 0.18), transparent 60%),
-      radial-gradient(ellipse at 50% 120%, hsl(var(--primary) / 0.18), transparent 60%);
+    background-image: radial-gradient(ellipse at 50% 0%, hsl(var(--primary) / 0.08), transparent 55%);
   }
 }
 
 @layer utilities {
   .glass {
-    background-color: hsl(var(--glass-bg));
-    border: 1px solid hsl(var(--glass-border));
-    @apply backdrop-blur-xl shadow-glass;
+    background-color: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    @apply rounded-3xl shadow-sm;
   }
 
   .glass-strong {
-    background-color: hsl(var(--glass-bg));
-    border: 1px solid hsl(var(--glass-border));
-    @apply backdrop-blur-2xl shadow-glass-strong;
+    background-color: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    @apply rounded-3xl shadow-md;
   }
 
   @keyframes gradient-shift {
@@ -128,29 +122,17 @@
   }
 
   .bg-anime {
-    background-image:
-      radial-gradient(ellipse at 20% 0%, hsl(221 83% 53% / 0.16), transparent 55%),
-      radial-gradient(ellipse at 100% 30%, hsl(160 84% 39% / 0.14), transparent 55%),
-      radial-gradient(ellipse at 0% 100%, hsl(221 83% 53% / 0.10), transparent 60%);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background-image: none;
   }
 
   .dark .bg-anime {
-    background-image:
-      radial-gradient(ellipse at 20% 0%, hsl(217 91% 60% / 0.18), transparent 55%),
-      radial-gradient(ellipse at 100% 30%, hsl(160 84% 39% / 0.14), transparent 55%),
-      radial-gradient(ellipse at 0% 100%, hsl(217 91% 60% / 0.14), transparent 60%);
+    background-image: none;
   }
 
   .grid-pattern {
-    background-image:
-      linear-gradient(hsl(var(--border)) 1px, transparent 1px),
-      linear-gradient(90deg, hsl(var(--border)) 1px, transparent 1px);
-    background-size: 48px 48px;
-    -webkit-mask-image: radial-gradient(ellipse at 50% 0%, black 30%, transparent 70%);
-    mask-image: radial-gradient(ellipse at 50% 0%, black 30%, transparent 70%);
+    background-image: none;
+    -webkit-mask-image: none;
+    mask-image: none;
   }
 
   .safe-bottom {
