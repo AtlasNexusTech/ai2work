@@ -1,6 +1,6 @@
-# @atlasnexus/ai2work-worker
+# @atlasnexus/aijobs-worker
 
-Policy-gated execution layer for AI2WORK. It does not rediscover or rank missions: it turns an existing on-chain bounty into a controlled, auditable Git workspace.
+Policy-gated execution layer for AIJOBS. It does not rediscover or rank missions: it turns an existing on-chain bounty into a controlled, auditable Git workspace.
 
 ## Safety model
 
@@ -13,9 +13,9 @@ Policy-gated execution layer for AI2WORK. It does not rediscover or rank mission
 ## Commands
 
 ```bash
-ai2work-worker evaluate --bounty bounty.json --policy policy.json --ledger run.jsonl
-ai2work-worker prepare --bounty bounty.json --policy policy.json --workspace ./runs --ledger run.jsonl
-ai2work-worker verify-ledger --ledger run.jsonl
+aijobs-worker evaluate --bounty bounty.json --policy policy.json --ledger run.jsonl
+aijobs-worker prepare --bounty bounty.json --policy policy.json --workspace ./runs --ledger run.jsonl
+aijobs-worker verify-ledger --ledger run.jsonl
 ```
 
-`prepare` runs only after a `CLAIM` policy decision. It shallow-clones the approved GitHub repository and writes `.ai2work-run.json` as the execution manifest. On-chain claiming remains a separate explicit operator action.
+`prepare` runs only after a `CLAIM` policy decision. It shallow-clones the approved GitHub repository and writes `.aijobs-run.json` as the execution manifest. On-chain claiming remains a separate explicit operator action.

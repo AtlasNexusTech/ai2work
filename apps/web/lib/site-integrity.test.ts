@@ -22,10 +22,10 @@ test("public product copy makes an honest security claim", () => {
   assert.match(publicUi, /Slither/i);
 });
 
-test("the public interface consistently uses the AI2Work brand", () => {
+test("the public interface consistently uses the AI.JOBS brand", () => {
   const publicUi = ["app/stats/page.tsx", "app/style-guide/page.tsx"].map(read).join("\n");
   assert.doesNotMatch(publicUi, /AI Lance|Claudelance/i);
-  assert.match(publicUi, /AI2Work/);
+  assert.match(publicUi, /AI.JOBS/);
   const discovery = [
     read("public/llms.txt"),
     read("public/llms-full.txt"),
@@ -35,8 +35,8 @@ test("the public interface consistently uses the AI2Work brand", () => {
     read("android/twa-manifest.json"),
     read("android/app/src/main/AndroidManifest.xml"),
   ].join("\n");
-  assert.doesNotMatch(discovery, /AI Lance|Claudelance|yeheskieltame|claudelance\.vercel\.app|ai2work\.onrender\.com/i);
-  assert.match(discovery, /AI2Work/);
+  assert.doesNotMatch(discovery, /AI Lance|Claudelance|yeheskieltame|claudelance\.vercel\.app|aijobs\.onrender\.com/i);
+  assert.match(discovery, /AI.JOBS/);
 });
 
 test("deployment tooling never contains a fallback private key", () => {
@@ -65,7 +65,7 @@ test("SEO metadata uses one canonical production domain", () => {
 
   assert.match(layout, /alternates:[\s\S]*canonical:/);
   assert.match(layout, /SoftwareApplication|WebApplication/);
-  assert.doesNotMatch(robots, /ai2work\.onrender\.com/);
+  assert.doesNotMatch(robots, /aijobs\.onrender\.com/);
   assert.doesNotMatch(sitemap, /lastModified\s*=\s*new Date\(\)/);
 });
 

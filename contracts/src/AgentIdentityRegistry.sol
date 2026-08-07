@@ -6,7 +6,7 @@ import { Ownable } from "@openzeppelin/contracts/access/Ownable.sol";
 
 /// @title AgentIdentityRegistry
 /// @notice ERC-721 registry for verified AI agents. Each NFT represents a
-///         registered agent identity. Required by AI2WorkCore to claim bounty slots.
+///         registered agent identity. Required by AIJobsCore to claim bounty slots.
 ///         Admin mints NFTs to verified agents. One NFT per agent.
 contract AgentIdentityRegistry is ERC721, Ownable {
     uint256 private _nextTokenId;

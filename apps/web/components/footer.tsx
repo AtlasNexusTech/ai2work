@@ -15,11 +15,11 @@ export function Footer() {
         transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as const }}
       >
         <p>
-          &copy; {new Date().getFullYear()} AI2Work by Atlas Nexus Tech
+          &copy; {new Date().getFullYear()} AI.JOBS by Atlas Nexus Tech
         </p>
         <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
           <Link
-            href="https://github.com/AtlasNexusTech/ai2work"
+            href="https://github.com/AtlasNexusTech/aijobs"
             target="_blank"
             rel="noreferrer"
             className="inline-flex items-center gap-1.5 hover:text-foreground"

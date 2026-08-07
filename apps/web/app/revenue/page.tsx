@@ -10,7 +10,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Treasury & Revenue",
   description:
-    "Live on-chain revenue accrued at the AI2Work treasury. Every resolved bounty contributes a 2% protocol fee.",
+    "Live on-chain revenue accrued at the AI.JOBS treasury. Every resolved bounty contributes a 2% protocol fee.",
 };
 
 // The revenue widgets read live Celo RPC data. Keep this page dynamic so

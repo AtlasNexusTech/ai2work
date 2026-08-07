@@ -3,7 +3,7 @@ import test from "node:test";
 
 import { coreWriteAbi } from "./write-abi";
 
-test("postBounty ABI matches the deployed AI2WorkCore contract", () => {
+test("postBounty ABI matches the deployed AIJobsCore contract", () => {
   const fn = coreWriteAbi.find(
     (entry) => entry.type === "function" && entry.name === "postBounty"
   );

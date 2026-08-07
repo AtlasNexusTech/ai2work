@@ -1,7 +1,7 @@
-// PWA Service Worker for AI2Work
+// PWA Service Worker for AI.JOBS
 // Enables install prompt on Chrome (beforeinstallprompt requires a functional SW)
 
-const CACHE_NAME = "ai2work-v1";
+const CACHE_NAME = "aijobs-v1";
 const OFFLINE_URL = "/";
 
 self.addEventListener("install", (event) => {

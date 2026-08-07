@@ -45,13 +45,13 @@ export function Header() {
         <Link href="/" className="flex items-center gap-2">
           <motion.img
             src="/logo.png"
-            alt="AI2Work"
+            alt="AI.JOBS"
             className="h-8 w-8 rounded-lg"
             whileHover={{ rotate: 8, scale: 1.08 }}
             transition={{ type: "spring", stiffness: 400, damping: 12 }}
           />
           <span className="hidden text-sm font-semibold tracking-tight sm:inline-flex items-center">
-            AI2Work
+            AI.JOBS
           </span>
           <span className="inline-flex rounded-full bg-amber-500/15 px-2 py-0.5 text-[10px] font-medium text-amber-600 dark:text-amber-400 items-center gap-1">
             <FlaskConical className="h-3 w-3" />

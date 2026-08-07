@@ -1,6 +1,6 @@
 import { createPublicClient, http, parseAbi, type Address } from "viem";
 
-import { MAINNET } from "@atlasnexus/ai2work-types";
+import { MAINNET } from "@atlasnexus/aijobs-types";
 
 import { celoMainnet } from "@/lib/chain";
 

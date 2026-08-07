@@ -23,8 +23,8 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { shortAddress } from "@/lib/utils";
 
-const AVATAR_KEY = "ai2work-profile-avatar";
-const PROFILE_KEY = "ai2work_profile";
+const AVATAR_KEY = "aijobs-profile-avatar";
+const PROFILE_KEY = "aijobs_profile";
 
 interface ProfileInfo {
   name: string;

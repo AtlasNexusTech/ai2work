@@ -5,7 +5,7 @@ import { useRef, useState, useEffect } from "react";
 import { Camera } from "lucide-react";
 import { useIsMounted } from "@/hooks/use-is-mounted";
 
-const AVATAR_STORAGE_KEY = "ai2work-profile-avatar";
+const AVATAR_STORAGE_KEY = "aijobs-profile-avatar";
 
 function getStoredAvatar(address: string): string | null {
   try {

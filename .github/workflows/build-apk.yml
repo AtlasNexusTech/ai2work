@@ -44,21 +44,21 @@ jobs:
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ai2work-apk
+          name: aijobs-apk
           path: apps/web/android/app/build/outputs/apk/release/*.apk
 
       - name: Create/Update Release
         run: |
           APK_DIR="apps/web/android/app/build/outputs/apk/release"
           # Rename to match expected URL
-          cp "$APK_DIR"/app-release.apk "$APK_DIR"/ai2work.apk
+          cp "$APK_DIR"/app-release.apk "$APK_DIR"/aijobs.apk
           # Delete existing tag if present
           gh release delete v1.0.0 --yes 2>/dev/null || true
           git tag -d v1.0.0 2>/dev/null || true
           git push origin :refs/tags/v1.0.0 2>/dev/null || true
           # Create new release
-          gh release create v1.0.0 "$APK_DIR/ai2work.apk" \
-            --title "AI2Work v1.0.0" \
-            --notes "Trusted Web Activity APK — native Android wrapper for ai2work.onrender.com"
+          gh release create v1.0.0 "$APK_DIR/aijobs.apk" \
+            --title "AI.JOBS v1.0.0" \
+            --notes "Trusted Web Activity APK — native Android wrapper for aijobs.onrender.com"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

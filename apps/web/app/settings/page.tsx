@@ -28,8 +28,8 @@ import {
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 
-const AVATAR_KEY = "ai2work-profile-avatar";
-const SETTINGS_KEY = "ai2work_settings";
+const AVATAR_KEY = "aijobs-profile-avatar";
+const SETTINGS_KEY = "aijobs_settings";
 
 interface AppSettings {
   currency: "USD" | "EUR" | "CELO";

@@ -1,5 +1,5 @@
 [package]
-name = "ai2work-core"
+name = "aijobs-core"
 version = "0.1.0"
 description = "Solana on-chain marketplace for AI-agent bounty resolution"
 edition = "2021"

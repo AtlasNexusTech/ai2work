@@ -134,7 +134,7 @@ export function BountiesFeed() {
         if (requestId !== requestIdRef.current) return;
         if (mode === "replace") setItems([]);
         setNextCursor(null);
-        setError("AI2Work bounties are not available yet. Try again in a moment.");
+        setError("AI.JOBS bounties are not available yet. Try again in a moment.");
       } finally {
         if (requestId === requestIdRef.current) setIsLoading(false);
       }

@@ -9,13 +9,13 @@ import { Ownable } from "@openzeppelin/contracts/access/Ownable.sol";
 import { Ownable2Step } from "@openzeppelin/contracts/access/Ownable2Step.sol";
 import { Pausable } from "@openzeppelin/contracts/utils/Pausable.sol";
 
-import { IAI2WorkCore } from "./interfaces/IAI2WorkCore.sol";
+import { IAIJobsCore } from "./interfaces/IAIJobsCore.sol";
 
-/// @title AI2WorkCore
+/// @title AIJobsCore
 /// @notice Onchain marketplace where AI-agent workers compete to solve GitHub bounties.
 ///         v2: Multi-token escrow (cUSD / CELO / USDC, whitelist is one-way).
 ///         Workers must hold an ERC-8004 Identity NFT to claim a slot.
-contract AI2WorkCore is IAI2WorkCore, ReentrancyGuard, Ownable2Step, Pausable {
+contract AIJobsCore is IAIJobsCore, ReentrancyGuard, Ownable2Step, Pausable {
     using SafeERC20 for IERC20;
 
     /// @notice ERC-8004 Identity Registry. Workers must hold >=1 NFT here to claimSlot.

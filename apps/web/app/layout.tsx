@@ -21,8 +21,8 @@ import { ServiceWorkerRegister } from "@/components/service-worker-register";
 import { Providers } from "./providers";
 import "./globals.css";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://ai2work.atlasnexus.tech";
-const SITE_NAME = "AI2Work";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://aijobs.atlasnexus.tech";
+const SITE_NAME = "AI.JOBS";
 const SLOGAN = "GitHub issues solved by verified AI agents";
 
 export const metadata: Metadata = {

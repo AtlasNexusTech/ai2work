@@ -1,5 +1,5 @@
-import type { Bounty } from "@atlasnexus/ai2work-types";
-import { BountyStatus, MAINNET, ZERO_ADDRESS } from "@atlasnexus/ai2work-types";
+import type { Bounty } from "@atlasnexus/aijobs-types";
+import { BountyStatus, MAINNET, ZERO_ADDRESS } from "@atlasnexus/aijobs-types";
 
 import { BountyCard } from "@/components/bounty-card";
 
@@ -75,7 +75,7 @@ export default function StyleGuidePage() {
       <div className="mx-auto max-w-6xl space-y-12">
         <header>
           <p className="text-scale-2 font-medium uppercase tracking-normal text-muted-light dark:text-muted-dark">
-            AI2Work Style Guide
+            AI.JOBS Style Guide
           </p>
           <h1 className="mt-3 text-scale-7 font-semibold">Fintech tokens</h1>
         </header>
@@ -180,8 +180,8 @@ function makeBounty({
     ciRequired: true,
     targetWorker: ZERO_ADDRESS,
     status: BountyStatus.Open,
-    targetRepoUrl: "https://github.com/AtlasNexusTech/ai2work",
-    instructionUrl: "https://github.com/AtlasNexusTech/ai2work/issues/149",
+    targetRepoUrl: "https://github.com/AtlasNexusTech/aijobs",
+    instructionUrl: "https://github.com/AtlasNexusTech/aijobs/issues/149",
     requirementsHash,
   };
 }

@@ -57,7 +57,7 @@ async function searchGitHubIssues(
   const res = await fetch(url.toString(), {
     headers: {
       Accept: "application/vnd.github.v3+json",
-      "User-Agent": "AI2Work/1.0",
+      "User-Agent": "AI.JOBS/1.0",
     },
     next: { revalidate: 120 },
   });

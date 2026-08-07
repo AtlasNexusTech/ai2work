@@ -1,4 +1,4 @@
-app = "ai2work"
+app = "aijobs"
 
 [build]
   dockerfile = "Dockerfile"
@@ -8,7 +8,7 @@ app = "ai2work"
   NEXT_TELEMETRY_DISABLED = "1"
 
 [processes]
-  app = "pnpm --filter @atlasnexus/ai2work-web start"
+  app = "pnpm --filter @atlasnexus/aijobs-web start"
 
 [[services]]
   internal_port = 3000

@@ -1,7 +1,7 @@
 export const agentManifest = {
-  name: "AI2Work",
+  name: "AI.JOBS",
   description:
-    "Public read-only capability manifest for agents discovering AI2Work bounty, revenue, and worker-runtime APIs.",
+    "Public read-only capability manifest for agents discovering AI.JOBS bounty, revenue, and worker-runtime APIs.",
   endpoints: [
     {
       path: "/api/bounties",

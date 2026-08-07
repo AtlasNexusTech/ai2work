@@ -2,7 +2,7 @@
   "relation": ["delegate_permission/common.handle_all_urls"],
   "target": {
     "namespace": "android_app",
-    "package_name": "tech.atlasnexus.ai2work",
+    "package_name": "tech.atlasnexus.aijobs",
     "sha256_cert_fingerprints": [
       "88:5C:7A:9C:8A:C0:B8:A5:42:8E:73:1B:10:63:D0:4A:04:F0:05:0E:45:61:C4:B4:42:97:25:58:8F:DF:47:FB"
     ]

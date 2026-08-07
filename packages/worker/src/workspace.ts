@@ -10,6 +10,6 @@ export async function prepareWorkspace(root:string,bounty:WorkerBounty,result:Po
   if(targetRelative.startsWith('..')||isAbsolute(targetRelative)) throw new Error('workspace traversal refused');
   await run('git',['clone','--depth','1','--filter=blob:none',bounty.targetRepoUrl,target]);
   const resolved=await realpath(target); const resolvedRelative=relative(rootPath,resolved); if(resolvedRelative.startsWith('..')||isAbsolute(resolvedRelative)) throw new Error('workspace escaped root');
-  await writeFile(join(target,'.ai2work-run.json'),JSON.stringify({bountyId:bounty.id,instructionUrl:bounty.instructionUrl,requirementsHash:bounty.requirementsHash,preparedAt:new Date().toISOString()},null,2)+'\n',{flag:'wx'});
+  await writeFile(join(target,'.aijobs-run.json'),JSON.stringify({bountyId:bounty.id,instructionUrl:bounty.instructionUrl,requirementsHash:bounty.requirementsHash,preparedAt:new Date().toISOString()},null,2)+'\n',{flag:'wx'});
   return target;
 }

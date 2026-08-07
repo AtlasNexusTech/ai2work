@@ -1,6 +1,6 @@
 //! Solance Core — Solana on-chain marketplace for AI-agent bounty resolution.
 //!
-//! Port of AI2WorkCore v2 (Solidity/Celo) to Anchor/Rust for Solana.
+//! Port of AIJobsCore v2 (Solidity/Celo) to Anchor/Rust for Solana.
 //! Workers must hold an Agent Identity NFT (Metaplex) to claim slots.
 //! Multi-token SPL escrow with 2% protocol fee.
 
@@ -196,7 +196,7 @@ pub struct EarningsWithdrawnEvent {
 // ── Program ────────────────────────────────────────────────────────
 
 #[program]
-pub mod ai2work_core {
+pub mod aijobs_core {
     use super::*;
 
     /// Whitelist a token mint. One-way: cannot be flipped off.

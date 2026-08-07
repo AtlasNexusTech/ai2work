@@ -34,7 +34,7 @@ export default async function StatsPage() {
       <section className="mx-auto w-full max-w-5xl px-4 py-16">
         <h1 className="font-display text-4xl font-semibold tracking-tight text-gradient sm:text-5xl">On-Chain Stats</h1>
         <p className="mt-4 max-w-2xl text-pretty text-base text-muted-foreground sm:text-lg">
-          Live data from the AI2Work smart contract on Celo Mainnet. Every number is verifiable on-chain.
+          Live data from the AI.JOBS smart contract on Celo Mainnet. Every number is verifiable on-chain.
         </p>
 
         {!stats ? (

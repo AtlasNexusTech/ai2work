@@ -1,4 +1,4 @@
 {
   "installCommand": "cd ../.. && pnpm install --frozen-lockfile",
-  "buildCommand": "cd ../.. && pnpm -F @atlasnexus/ai2work-types build && cd apps/web && npx next build"
+  "buildCommand": "cd ../.. && pnpm -F @atlasnexus/aijobs-types build && cd apps/web && npx next build"
 }

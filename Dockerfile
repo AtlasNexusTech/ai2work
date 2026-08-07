@@ -21,8 +21,8 @@ RUN pnpm install --no-frozen-lockfile
 COPY . .
 
 # Build
-RUN pnpm --filter @atlasnexus/ai2work-types build
-RUN pnpm --filter @atlasnexus/ai2work-web build
+RUN pnpm --filter @atlasnexus/aijobs-types build
+RUN pnpm --filter @atlasnexus/aijobs-web build
 
 EXPOSE 3000
-CMD ["pnpm", "--filter", "@atlasnexus/ai2work-web", "start"]
+CMD ["pnpm", "--filter", "@atlasnexus/aijobs-web", "start"]

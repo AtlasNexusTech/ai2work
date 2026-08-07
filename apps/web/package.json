@@ -1,5 +1,5 @@
 {
-  "name": "@atlasnexus/ai2work-web",
+  "name": "@atlasnexus/aijobs-web",
   "version": "0.0.1",
   "private": true,
   "license": "MIT",
@@ -14,7 +14,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@atlasnexus/ai2work-types": "workspace:*",
+    "@atlasnexus/aijobs-types": "workspace:*",
     "@privy-io/react-auth": "^2",
     "@radix-ui/react-slot": "^1.1.0",
     "@solana/wallet-adapter-base": "^0.9.27",

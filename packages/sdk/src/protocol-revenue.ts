@@ -1,6 +1,6 @@
 import type { Address, PublicClient } from "viem";
 
-import { CLAUDELANCE_CORE_ABI } from "@atlasnexus/ai2work-types";
+import { CLAUDELANCE_CORE_ABI } from "@atlasnexus/aijobs-types";
 
 /**
  * Read `totalProtocolRevenue(token)` from the Claudelance Core. Each resolved

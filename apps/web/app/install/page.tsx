@@ -10,8 +10,8 @@ interface BeforeInstallPromptEvent extends Event {
   userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
 }
 
-const APP_URL = "https://ai2work.atlasnexus.tech";
-const APK_URL = "https://github.com/AtlasNexusTech/ai2work/releases/latest/download/ai2work.apk";
+const APP_URL = "https://aijobs.atlasnexus.tech";
+const APK_URL = "https://github.com/AtlasNexusTech/aijobs/releases/latest/download/aijobs.apk";
 const QR_URL = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(APK_URL)}`;
 
 function useDeviceDetect() {
@@ -81,12 +81,12 @@ export default function InstallPage() {
 
       <section className="mx-auto w-full max-w-2xl px-4 py-12 text-center">
         <h1 className="font-display text-3xl font-semibold tracking-tight text-gradient sm:text-4xl">
-          Install AI2Work
+          Install AI.JOBS
         </h1>
         <p className="mt-3 text-sm text-muted-foreground">
           {isMobile
-            ? "Add AI2Work to your home screen — one tap, instant access."
-            : "Scan the QR code with your phone to install AI2Work."}
+            ? "Add AI.JOBS to your home screen — one tap, instant access."
+            : "Scan the QR code with your phone to install AI.JOBS."}
         </p>
 
         {isMobile ? (
@@ -99,7 +99,7 @@ export default function InstallPage() {
                 </div>
                 <h2 className="mt-4 text-xl font-semibold">Installed!</h2>
                 <p className="mt-2 text-sm text-muted-foreground">
-                  AI2Work is now on your home screen. Launch it anytime.
+                  AI.JOBS is now on your home screen. Launch it anytime.
                 </p>
               </div>
             ) : deferredPrompt ? (
@@ -110,7 +110,7 @@ export default function InstallPage() {
                 </div>
                 <h2 className="mt-4 text-xl font-semibold">One tap to install</h2>
                 <p className="mt-2 text-sm text-muted-foreground">
-                  AI2Work works offline, loads instantly, and lives on your home screen.
+                  AI.JOBS works offline, loads instantly, and lives on your home screen.
                 </p>
                 <button
                   onClick={handleInstall}
@@ -141,7 +141,7 @@ export default function InstallPage() {
                   </li>
                   <li className="flex gap-3 text-sm">
                     <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary">3</span>
-                    <span>Tap the AI2Work icon — you're in!</span>
+                    <span>Tap the AI.JOBS icon — you're in!</span>
                   </li>
                 </ol>
               </div>
@@ -156,14 +156,14 @@ export default function InstallPage() {
               </div>
               <h2 className="mt-4 text-lg font-semibold">Scan to install the app</h2>
               <p className="mt-1 text-sm text-muted-foreground">
-                Point your phone camera at the QR code to download the AI2Work APK.
+                Point your phone camera at the QR code to download the AI.JOBS APK.
               </p>
 
               <div className="mt-6 flex justify-center">
                 <div className="rounded-2xl border-2 border-border bg-white p-3">
                   <img
                     src={QR_URL}
-                    alt="QR code to install AI2Work"
+                    alt="QR code to install AI.JOBS"
                     width={220}
                     height={220}
                     className="h-[220px] w-[220px]"
@@ -182,7 +182,7 @@ export default function InstallPage() {
                 className="mt-4 inline-flex items-center gap-1 text-xs text-primary hover:underline"
               >
                 <ExternalLink className="h-3 w-3" />
-                Open AI2Work in browser
+                Open AI.JOBS in browser
               </a>
             </div>
           </div>
@@ -195,7 +195,7 @@ export default function InstallPage() {
           </h3>
           <p className="mt-1 text-xs text-muted-foreground">
             Open MetaMask mobile → Browser → go to{" "}
-            <code className="rounded bg-muted px-1 text-[11px]">ai2work.atlasnexus.tech</code>
+            <code className="rounded bg-muted px-1 text-[11px]">aijobs.atlasnexus.tech</code>
             {" "}→ Connect wallet.
           </p>
         </div>

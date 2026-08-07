@@ -18,7 +18,7 @@ import {
   type Bounty,
   type Deployment,
   type TokenSet,
-} from '@atlasnexus/ai2work-types';
+} from '@atlasnexus/aijobs-types';
 
 import { chainForNetwork, type NetworkKey } from './chain.js';
 import { CUSD_ABI } from './cusd-abi.js';
@@ -128,7 +128,7 @@ export class ClaudelanceClient {
 
   /**
    * Convenience: build a fully-wired client from a private key + network
-   * key. Resolves the canonical addresses from `@atlasnexus/ai2work-types`.
+   * key. Resolves the canonical addresses from `@atlasnexus/aijobs-types`.
    *
    * Supported networks: `'sepolia'` (Celo Sepolia) and `'celo'` (Celo Mainnet).
    */

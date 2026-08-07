@@ -6,8 +6,8 @@ services:
     rootDir: .
     buildCommand: |
       pnpm install --no-frozen-lockfile
-      pnpm --filter @atlasnexus/ai2work-types build
-      pnpm --filter @atlasnexus/ai2work-web build
+      pnpm --filter @atlasnexus/aijobs-types build
+      pnpm --filter @atlasnexus/aijobs-web build
     startCommand: cd apps/web && pnpm start
     envVars:
       - key: NODE_ENV

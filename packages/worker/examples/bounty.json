@@ -1,7 +1,7 @@
 {
   "id": "demo-1",
-  "targetRepoUrl": "https://github.com/AtlasNexusTech/ai2work",
-  "instructionUrl": "https://github.com/AtlasNexusTech/ai2work/issues/1",
+  "targetRepoUrl": "https://github.com/AtlasNexusTech/aijobs",
+  "instructionUrl": "https://github.com/AtlasNexusTech/aijobs/issues/1",
   "deadline": "2099-01-01T00:00:00Z",
   "status": "open",
   "reward": "1000",

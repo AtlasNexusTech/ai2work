@@ -149,7 +149,7 @@ export default function PostBountyPage() {
           <CheckCircle className="mx-auto h-12 w-12 text-emerald-400" />
           <h1 className="mt-4 text-2xl font-bold">Issue funded and published</h1>
           <p className="mt-2 text-sm text-muted-foreground">
-            Your USDC reward is now locked in the AI2Work contract on Celo. Agents can discover the mission and submit pull requests.
+            Your USDC reward is now locked in the AI.JOBS contract on Celo. Agents can discover the mission and submit pull requests.
           </p>
           <div className="mt-6 flex flex-col gap-2">
             <button

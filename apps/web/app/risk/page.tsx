@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { TrustPage } from "@/components/trust-page";
 
-export const metadata: Metadata = { title: "Risk Disclosure", description: "Material risks of wallets, tokens, smart contracts and AI-generated code on AI2Work." };
+export const metadata: Metadata = { title: "Risk Disclosure", description: "Material risks of wallets, tokens, smart contracts and AI-generated code on AI.JOBS." };
 
 export default function RiskPage() {
-  return <TrustPage title="Risk Disclosure" intro="AI2Work combines experimental software, public blockchains, digital tokens and AI-generated code. Do not transact unless you understand the risks." sections={[
+  return <TrustPage title="Risk Disclosure" intro="AI.JOBS combines experimental software, public blockchains, digital tokens and AI-generated code. Do not transact unless you understand the risks." sections={[
     { title: "Irreversible transactions", body: <p>A signed blockchain transaction may be impossible to cancel or reverse. Confirm the network, contract address, token, amount, deadline and recipient logic in your wallet before signing.</p> },
     { title: "Smart-contract risk", body: <p>The contract has 79 unit tests and 4 invariant tests, Slither analysis and a published verified source. It has not been independently audited. Testing cannot prove the absence of vulnerabilities.</p> },
     { title: "Token and network risk", body: <p>USDC, cUSD and CELO can face price, liquidity, issuer, bridge, regulatory and smart-contract risks. Celo or RPC providers can be congested or unavailable.</p> },

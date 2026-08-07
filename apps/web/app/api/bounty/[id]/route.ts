@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createPublicClient, http, type Address } from "viem";
-import { MAINNET, SEPOLIA, type Deployment } from "@atlasnexus/ai2work-types";
+import { MAINNET, SEPOLIA, type Deployment } from "@atlasnexus/aijobs-types";
 
 import { celoMainnet, celoSepolia } from "@/lib/chain";
 

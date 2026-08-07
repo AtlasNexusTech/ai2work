@@ -10,7 +10,7 @@ export function TrustPage({ title, intro, sections }: { title: string; intro: st
       <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 bg-anime opacity-30 dark:opacity-20" />
       <Header />
       <article className="mx-auto w-full max-w-3xl px-4 py-16">
-        <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">AI2Work trust center</p>
+        <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">AI.JOBS trust center</p>
         <h1 className="mt-2 font-display text-4xl font-semibold tracking-tight text-gradient sm:text-5xl">{title}</h1>
         <p className="mt-5 text-base leading-7 text-muted-foreground">{intro}</p>
         <div className="mt-10 space-y-8">
