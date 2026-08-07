@@ -14,7 +14,7 @@ importers:
 
   apps/web:
     dependencies:
-      '@atlasnexus/ai2work-types':
+      '@atlasnexus/aijobs-types':
         specifier: workspace:*
         version: link:../../packages/types
       '@privy-io/react-auth':
@@ -117,7 +117,7 @@ importers:
 
   packages/sdk:
     dependencies:
-      '@atlasnexus/ai2work-types':
+      '@atlasnexus/aijobs-types':
         specifier: workspace:*
         version: link:../types
     devDependencies:
